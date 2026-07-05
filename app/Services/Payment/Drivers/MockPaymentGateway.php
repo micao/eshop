@@ -11,26 +11,20 @@ class MockPaymentGateway implements PaymentGatewayInterface
 {
     /**
      * Create a mock payment intent.
-     *
-     * @param Order $order
-     * @param string $paymentMethodType
-     * @return array
      */
     public function createPaymentIntent(Order $order, string $paymentMethodType): array
     {
-        $intentId = 'pi_mock_' . strtolower(Str::random(16));
+        $intentId = 'pi_mock_'.strtolower(Str::random(16));
+
         return [
-            'client_secret' => $intentId . '_secret_' . strtolower(Str::random(8)),
+            'client_secret' => $intentId.'_secret_'.strtolower(Str::random(8)),
             'transaction_id' => $intentId,
-            'redirect_url' => 'https://eshop.test/checkout/pay/' . $intentId,
+            'redirect_url' => 'https://eshop.test/checkout/pay/'.$intentId,
         ];
     }
 
     /**
      * Verify the webhook payload.
-     *
-     * @param Request $request
-     * @return array|null
      */
     public function verifyWebhook(Request $request): ?array
     {

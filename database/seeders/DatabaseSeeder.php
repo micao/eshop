@@ -2,7 +2,14 @@
 
 namespace Database\Seeders;
 
+use App\Models\Cart;
+use App\Models\CartItem;
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\ShippingMethod;
 use App\Models\User;
+use App\Models\UserAddress;
+use App\Models\Variant;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -20,12 +27,12 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
-            'role' => \App\Models\User::ROLE_ADMIN,
+            'role' => User::ROLE_ADMIN,
         ]);
 
         $this->call(ProductSeeder::class);
 
-        $shippingMethod = \App\Models\ShippingMethod::create([
+        $shippingMethod = ShippingMethod::create([
             'name' => 'bpost Standard Shipping',
             'carrier' => 'bpost',
             'gateway_driver' => 'flat_rate',
@@ -33,7 +40,7 @@ class DatabaseSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        \App\Models\ShippingMethod::create([
+        ShippingMethod::create([
             'name' => 'GLS European Express',
             'carrier' => 'gls',
             'gateway_driver' => 'flat_rate',
@@ -45,11 +52,11 @@ class DatabaseSeeder extends Seeder
         $customer = User::factory()->create([
             'name' => 'Customer User',
             'email' => 'customer@example.com',
-            'role' => \App\Models\User::ROLE_USER,
+            'role' => User::ROLE_USER,
         ]);
 
         // Seed addresses
-        \App\Models\UserAddress::create([
+        UserAddress::create([
             'user_id' => 1,
             'recipient_name' => 'Test User Shipping',
             'recipient_phone' => '+32 499 12 34 56',
@@ -62,7 +69,7 @@ class DatabaseSeeder extends Seeder
             'is_default' => true,
         ]);
 
-        \App\Models\UserAddress::create([
+        UserAddress::create([
             'user_id' => 1,
             'recipient_name' => 'Test User Billing',
             'recipient_phone' => '+32 499 12 34 56',
@@ -74,7 +81,7 @@ class DatabaseSeeder extends Seeder
             'is_default' => false,
         ]);
 
-        \App\Models\UserAddress::create([
+        UserAddress::create([
             'user_id' => $customer->id,
             'recipient_name' => 'Customer User',
             'recipient_phone' => '+49 170 1234567',
@@ -86,29 +93,29 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Seed carts and cart items
-        $cart1 = \App\Models\Cart::create(['user_id' => 1]);
-        $cart2 = \App\Models\Cart::create(['user_id' => $customer->id]);
+        $cart1 = Cart::create(['user_id' => 1]);
+        $cart2 = Cart::create(['user_id' => $customer->id]);
 
-        $v1 = \App\Models\Variant::where('sku', 'IPH15-BLK-128')->first();
-        $v2 = \App\Models\Variant::where('sku', 'SONY-XM5-BLK')->first();
-        $v3 = \App\Models\Variant::where('sku', 'APL-W9-45')->first();
+        $v1 = Variant::where('sku', 'IPH15-BLK-128')->first();
+        $v2 = Variant::where('sku', 'SONY-XM5-BLK')->first();
+        $v3 = Variant::where('sku', 'APL-W9-45')->first();
 
         if ($v1) {
-            \App\Models\CartItem::create([
+            CartItem::create([
                 'cart_id' => $cart1->id,
                 'variant_id' => $v1->id,
                 'quantity' => 1,
             ]);
         }
         if ($v2) {
-            \App\Models\CartItem::create([
+            CartItem::create([
                 'cart_id' => $cart1->id,
                 'variant_id' => $v2->id,
                 'quantity' => 2,
             ]);
         }
         if ($v3) {
-            \App\Models\CartItem::create([
+            CartItem::create([
                 'cart_id' => $cart2->id,
                 'variant_id' => $v3->id,
                 'quantity' => 1,
@@ -116,7 +123,7 @@ class DatabaseSeeder extends Seeder
         }
 
         // Seed orders and order items
-        $order1 = \App\Models\Order::create([
+        $order1 = Order::create([
             'user_id' => 1,
             'shipping_method_id' => $shippingMethod->id,
             'payment_method' => 'stripe',
@@ -138,9 +145,9 @@ class DatabaseSeeder extends Seeder
             'shipping_country_code' => 'BE',
         ]);
 
-        $vAeron = \App\Models\Variant::where('sku', 'HM-AERON-SIZEB')->first();
+        $vAeron = Variant::where('sku', 'HM-AERON-SIZEB')->first();
         if ($vAeron) {
-            \App\Models\OrderItem::create([
+            OrderItem::create([
                 'order_id' => $order1->id,
                 'variant_id' => $vAeron->id,
                 'quantity' => 1,
@@ -149,7 +156,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        $order2 = \App\Models\Order::create([
+        $order2 = Order::create([
             'user_id' => $customer->id,
             'shipping_method_id' => $shippingMethod->id,
             'payment_method' => 'stripe',
@@ -169,9 +176,9 @@ class DatabaseSeeder extends Seeder
             'shipping_country_code' => 'DE',
         ]);
 
-        $vMba = \App\Models\Variant::where('sku', 'MBA-M3-8G-512')->first();
+        $vMba = Variant::where('sku', 'MBA-M3-8G-512')->first();
         if ($vMba) {
-            \App\Models\OrderItem::create([
+            OrderItem::create([
                 'order_id' => $order2->id,
                 'variant_id' => $vMba->id,
                 'quantity' => 1,

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 class StripePaymentGateway implements PaymentGatewayInterface
 {
     protected string $secretKey;
+
     protected string $webhookSecret;
 
     public function __construct(array $config)
@@ -21,18 +22,15 @@ class StripePaymentGateway implements PaymentGatewayInterface
 
     /**
      * Create a payment intent on Stripe.
-     *
-     * @param Order $order
-     * @param string $paymentMethodType
-     * @return array
      */
     public function createPaymentIntent(Order $order, string $paymentMethodType): array
     {
         if (empty($this->secretKey)) {
             Log::warning('Stripe API Key is empty. Defaulting to mock response.');
+
             return [
-                'client_secret' => 'stripe_mock_secret_' . $order->order_number,
-                'transaction_id' => 'ch_mock_' . uniqid(),
+                'client_secret' => 'stripe_mock_secret_'.$order->order_number,
+                'transaction_id' => 'ch_mock_'.uniqid(),
             ];
         }
 
@@ -46,7 +44,7 @@ class StripePaymentGateway implements PaymentGatewayInterface
         }
 
         $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $this->secretKey,
+            'Authorization' => 'Bearer '.$this->secretKey,
         ])->asForm()->post('https://api.stripe.com/v1/payment_intents', [
             'amount' => $amountInCents,
             'currency' => 'eur',
@@ -58,8 +56,8 @@ class StripePaymentGateway implements PaymentGatewayInterface
         ]);
 
         if ($response->failed()) {
-            Log::error('Stripe PaymentIntent creation failed: ' . $response->body());
-            throw new \RuntimeException('Stripe payment initialization error: ' . ($response->json('error.message') ?? 'Unknown error'));
+            Log::error('Stripe PaymentIntent creation failed: '.$response->body());
+            throw new \RuntimeException('Stripe payment initialization error: '.($response->json('error.message') ?? 'Unknown error'));
         }
 
         return [
@@ -70,9 +68,6 @@ class StripePaymentGateway implements PaymentGatewayInterface
 
     /**
      * Verify Stripe webhook signature.
-     *
-     * @param Request $request
-     * @return array|null
      */
     public function verifyWebhook(Request $request): ?array
     {
@@ -88,16 +83,19 @@ class StripePaymentGateway implements PaymentGatewayInterface
                     'payment_intent_id' => $data['data']['object']['id'],
                 ];
             }
+
             return null;
         }
 
         // Validate webhook signature manually
-        if (!$this->isSignatureValid($payload, $signature)) {
+        if (! $this->isSignatureValid($payload, $signature)) {
             Log::warning('Invalid Stripe webhook signature.');
+
             return null;
         }
 
         $data = json_decode($payload, true);
+
         return [
             'event' => $data['type'] ?? '',
             'payment_intent_id' => $data['data']['object']['id'] ?? '',
@@ -106,10 +104,6 @@ class StripePaymentGateway implements PaymentGatewayInterface
 
     /**
      * Helper to parse and check Stripe-Signature header.
-     *
-     * @param string $payload
-     * @param string $signatureHeader
-     * @return bool
      */
     protected function isSignatureValid(string $payload, string $signatureHeader): bool
     {
@@ -129,7 +123,7 @@ class StripePaymentGateway implements PaymentGatewayInterface
             }
         }
 
-        if (!$timestamp || empty($signatures)) {
+        if (! $timestamp || empty($signatures)) {
             return false;
         }
 
@@ -138,7 +132,7 @@ class StripePaymentGateway implements PaymentGatewayInterface
             return false;
         }
 
-        $signedPayload = $timestamp . '.' . $payload;
+        $signedPayload = $timestamp.'.'.$payload;
         $expectedSignature = hash_hmac('sha256', $signedPayload, $this->webhookSecret);
 
         foreach ($signatures as $signature) {

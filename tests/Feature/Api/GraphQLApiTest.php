@@ -2,16 +2,13 @@
 
 namespace Tests\Feature\Api;
 
-use App\Models\User;
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\Variant;
 use App\Models\Cart;
 use App\Models\CartItem;
-use App\Models\Order;
-use App\Models\OrderItem;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\User;
+use App\Models\Variant;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class GraphQLApiTest extends TestCase

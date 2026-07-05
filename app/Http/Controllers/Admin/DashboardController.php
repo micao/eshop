@@ -13,8 +13,6 @@ class DashboardController extends Controller
 {
     /**
      * Display the admin dashboard with inventory metrics.
-     *
-     * @return Response
      */
     public function index(): Response
     {
@@ -54,7 +52,7 @@ class DashboardController extends Controller
                     });
 
                 $productCount = $productsQuery->count();
-                
+
                 $stockSum = 0;
                 foreach ($productsQuery->with('variants')->get() as $prod) {
                     $stockSum += $prod->variants->sum('inventory_quantity');

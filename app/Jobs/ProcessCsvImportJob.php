@@ -2,12 +2,16 @@
 
 namespace App\Jobs;
 
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\Supplier;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProcessCsvImportJob implements ShouldQueue
 {
@@ -28,6 +32,7 @@ class ProcessCsvImportJob implements ShouldQueue
     public $backoff = [10, 30];
 
     public string $filePath;
+
     public string $fileName;
 
     /**
@@ -45,8 +50,9 @@ class ProcessCsvImportJob implements ShouldQueue
     public function handle(): void
     {
         // Resolve absolute path from Laravel storage disk
-        if (!Storage::exists($this->filePath)) {
+        if (! Storage::exists($this->filePath)) {
             Log::error("ProcessCsvImportJob: CSV file path '{$this->filePath}' does not exist in storage.");
+
             return;
         }
 
@@ -57,11 +63,11 @@ class ProcessCsvImportJob implements ShouldQueue
             DB::beginTransaction();
             try {
                 $categoryId = null;
-                if (!empty($data['product_category'])) {
+                if (! empty($data['product_category'])) {
                     $categoryName = $data['product_category'];
-                    $categorySlug = \Illuminate\Support\Str::slug($categoryName);
+                    $categorySlug = Str::slug($categoryName);
 
-                    $category = \App\Models\Category::firstOrCreate(
+                    $category = Category::firstOrCreate(
                         ['slug' => $categorySlug],
                         ['name' => $categoryName]
                     );
@@ -69,11 +75,11 @@ class ProcessCsvImportJob implements ShouldQueue
                 }
 
                 $brandId = null;
-                if (!empty($data['product_brand'])) {
+                if (! empty($data['product_brand'])) {
                     $brandName = $data['product_brand'];
-                    $brandSlug = \Illuminate\Support\Str::slug($brandName);
+                    $brandSlug = Str::slug($brandName);
 
-                    $brand = \App\Models\Brand::firstOrCreate(
+                    $brand = Brand::firstOrCreate(
                         ['slug' => $brandSlug],
                         ['name' => $brandName]
                     );
@@ -81,11 +87,11 @@ class ProcessCsvImportJob implements ShouldQueue
                 }
 
                 $supplierId = null;
-                if (!empty($data['product_supplier'])) {
+                if (! empty($data['product_supplier'])) {
                     $supplierName = $data['product_supplier'];
-                    $supplierSlug = \Illuminate\Support\Str::slug($supplierName);
+                    $supplierSlug = Str::slug($supplierName);
 
-                    $supplier = \App\Models\Supplier::firstOrCreate(
+                    $supplier = Supplier::firstOrCreate(
                         ['slug' => $supplierSlug],
                         ['name' => $supplierName]
                     );
@@ -104,14 +110,14 @@ class ProcessCsvImportJob implements ShouldQueue
                         'summary' => $data['product_summary'] ?? '',
                         'status' => $data['product_status'] ?? 'active',
                         'thumbnail' => $data['product_thumbnail'] ?? null,
-                        'images' => !empty($data['product_images']) ? json_decode($data['product_images'], true) : [],
-                        'options' => !empty($data['product_options']) ? json_decode($data['product_options'], true) : [],
+                        'images' => ! empty($data['product_images']) ? json_decode($data['product_images'], true) : [],
+                        'options' => ! empty($data['product_options']) ? json_decode($data['product_options'], true) : [],
                     ]
                 );
 
                 // 2. Decode options and physical dimensions
-                $variantOptions = !empty($data['variant_options']) ? json_decode($data['variant_options'], true) : [];
-                
+                $variantOptions = ! empty($data['variant_options']) ? json_decode($data['variant_options'], true) : [];
+
                 $width = isset($data['variant_width']) && trim($data['variant_width']) !== '' ? floatval($data['variant_width']) : null;
                 $height = isset($data['variant_height']) && trim($data['variant_height']) !== '' ? floatval($data['variant_height']) : null;
                 $depth = isset($data['variant_depth']) && trim($data['variant_depth']) !== '' ? floatval($data['variant_depth']) : null;
@@ -144,7 +150,7 @@ class ProcessCsvImportJob implements ShouldQueue
                 DB::rollBack();
                 Log::error("ProcessCsvImportJob: Failed to import CSV row from '{$this->fileName}' (Error: {$e->getMessage()})", [
                     'exception' => $e,
-                    'row' => $data
+                    'row' => $data,
                 ]);
             }
         }
@@ -156,9 +162,6 @@ class ProcessCsvImportJob implements ShouldQueue
     /**
      * PHP Generator to parse CSV line-by-line.
      * Keeps memory consumption at a low constant O(1) complexity.
-     *
-     * @param string $filePath
-     * @return \Generator
      */
     private function readCsvRows(string $filePath): \Generator
     {

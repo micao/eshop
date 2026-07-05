@@ -28,7 +28,7 @@ class ImportProductsCommandTest extends TestCase
     public function test_command_fails_when_filename_is_invalid(): void
     {
         $tempFile = tempnam(sys_get_temp_dir(), 'test_import_');
-        $badNamePath = dirname($tempFile) . '/invalid_name.csv';
+        $badNamePath = dirname($tempFile).'/invalid_name.csv';
         file_put_contents($badNamePath, 'dummy data');
 
         $this->artisan("products:import {$badNamePath}")
@@ -43,7 +43,7 @@ class ImportProductsCommandTest extends TestCase
         Queue::fake();
 
         $tempDir = sys_get_temp_dir();
-        $validNamePath = $tempDir . '/2026_06_30_1782860289_product_1.csv';
+        $validNamePath = $tempDir.'/2026_06_30_1782860289_product_1.csv';
         file_put_contents($validNamePath, 'product_name,product_slug');
 
         $this->artisan("products:import {$validNamePath}")
@@ -52,7 +52,7 @@ class ImportProductsCommandTest extends TestCase
             ->assertExitCode(0);
 
         Queue::assertPushed(ProcessCsvImportJob::class, 1);
-        
+
         Storage::assertExists('imports/2026_06_30_1782860289_product_1.csv');
 
         unlink($validNamePath);

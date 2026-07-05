@@ -17,20 +17,16 @@ class StripeWebhookController extends Controller
     public function __construct(
         protected PaymentManager $paymentManager,
         protected CartService $cartService
-    ) {
-    }
+    ) {}
 
     /**
      * Handle incoming Stripe webhook notifications.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function handle(Request $request): JsonResponse
     {
         $payload = $this->paymentManager->driver()->verifyWebhook($request);
 
-        if (!$payload) {
+        if (! $payload) {
             return response()->json(['message' => 'Invalid webhook signature.'], 400);
         }
 
@@ -46,8 +42,9 @@ class StripeWebhookController extends Controller
         if ($event === 'payment_intent.succeeded') {
             $order = Order::where('payment_intent_id', $paymentIntentId)->first();
 
-            if (!$order) {
+            if (! $order) {
                 Log::warning("Order not found for Stripe payment intent: {$paymentIntentId}");
+
                 return response()->json(['message' => 'Order not found.'], 404);
             }
 

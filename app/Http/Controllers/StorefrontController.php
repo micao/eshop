@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
+use App\Models\Variant;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -12,8 +15,6 @@ class StorefrontController extends Controller
 {
     /**
      * Display the store homepage.
-     *
-     * @return Response
      */
     public function index(): Response
     {
@@ -37,9 +38,6 @@ class StorefrontController extends Controller
 
     /**
      * Display the catalog search/filter listing.
-     *
-     * @param Request $request
-     * @return Response
      */
     public function catalog(Request $request): Response
     {
@@ -47,23 +45,23 @@ class StorefrontController extends Controller
         if ($request->filled('search')) {
             $search = $request->input('search');
             $scoutIds = Product::search($search)->keys()->toArray();
-            
+
             if (empty($scoutIds)) {
                 $query = Product::whereRaw('1 = 0');
             } else {
                 $query = Product::with(['category', 'variants', 'brand', 'supplier'])
                     ->whereIn('id', $scoutIds)
                     ->where('status', 'active');
-                
+
                 // If not sorting by price, order by Elasticsearch's relevance sequence
-                if (!$request->filled('sort') || $request->input('sort') === 'latest') {
+                if (! $request->filled('sort') || $request->input('sort') === 'latest') {
                     $driver = $query->getConnection()->getDriverName();
                     if ($driver === 'sqlite') {
                         $cases = [];
                         foreach ($scoutIds as $index => $id) {
                             $cases[] = "WHEN id = {$id} THEN {$index}";
                         }
-                        $caseSql = "CASE " . implode(' ', $cases) . " END";
+                        $caseSql = 'CASE '.implode(' ', $cases).' END';
                         $query->orderByRaw($caseSql);
                     } else {
                         $idsOrder = implode(',', $scoutIds);
@@ -81,9 +79,9 @@ class StorefrontController extends Controller
             $categorySlug = $request->input('category');
             $query->whereHas('category', function ($q) use ($categorySlug) {
                 $q->where('slug', $categorySlug)
-                  ->orWhereHas('parent', function ($qp) use ($categorySlug) {
-                      $qp->where('slug', $categorySlug);
-                  });
+                    ->orWhereHas('parent', function ($qp) use ($categorySlug) {
+                        $qp->where('slug', $categorySlug);
+                    });
             });
         }
 
@@ -118,7 +116,7 @@ class StorefrontController extends Controller
         $sort = $request->input('sort', 'latest');
         if ($sort === 'price_asc') {
             $query->orderBy(
-                \App\Models\Variant::select('price')
+                Variant::select('price')
                     ->whereColumn('variants.product_id', 'products.id')
                     ->orderBy('price', 'asc')
                     ->limit(1),
@@ -126,7 +124,7 @@ class StorefrontController extends Controller
             );
         } elseif ($sort === 'price_desc') {
             $query->orderBy(
-                \App\Models\Variant::select('price')
+                Variant::select('price')
                     ->whereColumn('variants.product_id', 'products.id')
                     ->orderBy('price', 'asc')
                     ->limit(1),
@@ -138,7 +136,7 @@ class StorefrontController extends Controller
 
         $products = $query->paginate(12)->withQueryString();
         $categories = Category::whereNull('parent_id')->with('children')->get();
-        $brands = \App\Models\Brand::orderBy('name')->get();
+        $brands = Brand::orderBy('name')->get();
 
         return Inertia::render('catalog/Index', [
             'products' => $products,
@@ -150,9 +148,6 @@ class StorefrontController extends Controller
 
     /**
      * Display a specific product details page.
-     *
-     * @param string $slug
-     * @return Response
      */
     public function productShow(string $slug): Response
     {
@@ -168,8 +163,6 @@ class StorefrontController extends Controller
 
     /**
      * Display the shopper cart page.
-     *
-     * @return Response
      */
     public function cart(): Response
     {
@@ -178,13 +171,11 @@ class StorefrontController extends Controller
 
     /**
      * Display the checkout page.
-     *
-     * @param Request $request
-     * @return Response
      */
     public function checkout(Request $request): Response
     {
         $categories = Category::whereNull('parent_id')->get();
+
         return Inertia::render('catalog/Checkout', [
             'categories' => $categories,
         ]);
@@ -192,14 +183,11 @@ class StorefrontController extends Controller
 
     /**
      * Display the checkout success page.
-     *
-     * @param Request $request
-     * @return Response
      */
     public function checkoutSuccess(Request $request): Response
     {
         $orderNumber = $request->query('order_number');
-        $order = \App\Models\Order::where('user_id', auth()->id())
+        $order = Order::where('user_id', auth()->id())
             ->where('order_number', $orderNumber)
             ->with('items.variant.product')
             ->firstOrFail();

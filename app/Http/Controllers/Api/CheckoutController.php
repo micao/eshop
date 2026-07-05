@@ -8,6 +8,7 @@ use App\Models\OrderItem;
 use App\Models\ShippingMethod;
 use App\Models\Variant;
 use App\Services\CartService;
+use App\Services\Payment\PaymentManager;
 use App\Services\Shipping\ShippingManager;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -19,14 +20,10 @@ class CheckoutController extends Controller
     public function __construct(
         protected CartService $cartService,
         protected ShippingManager $shippingManager
-    ) {
-    }
+    ) {}
 
     /**
      * Get available shipping methods and estimated rates for the selected address.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function getShippingRates(Request $request): JsonResponse
     {
@@ -68,9 +65,6 @@ class CheckoutController extends Controller
 
     /**
      * Submit checkout to initialize order, create payment intent, and defer execution to Webhooks.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function store(Request $request): JsonResponse
     {
@@ -82,7 +76,7 @@ class CheckoutController extends Controller
 
         $address = $request->user()->addresses()->findOrFail($validated['user_address_id']);
         $method = ShippingMethod::findOrFail($validated['shipping_method_id']);
-        
+
         $cart = $this->cartService->getCartDetailsForUser($request->user());
         if (empty($cart['items'])) {
             return response()->json(['message' => 'Your shopping cart is empty.'], 422);
@@ -91,10 +85,10 @@ class CheckoutController extends Controller
         // Validate stock availability
         foreach ($cart['items'] as $item) {
             $variant = Variant::find($item['variant_id']);
-            if ($variant && $variant->track_inventory && !$variant->continue_selling_out_of_stock) {
+            if ($variant && $variant->track_inventory && ! $variant->continue_selling_out_of_stock) {
                 if ($variant->inventory_quantity < $item['quantity']) {
                     return response()->json([
-                        'message' => "Insufficient inventory stock for {$item['name']}. Only {$variant->inventory_quantity} units left."
+                        'message' => "Insufficient inventory stock for {$item['name']}. Only {$variant->inventory_quantity} units left.",
                     ], 422);
                 }
             }
@@ -121,7 +115,7 @@ class CheckoutController extends Controller
                 'user_id' => $request->user()->id,
                 'shipping_method_id' => $method->id,
                 'payment_method' => $validated['payment_method'],
-                'order_number' => 'ORD-' . strtoupper(Str::random(10)),
+                'order_number' => 'ORD-'.strtoupper(Str::random(10)),
                 'subtotal' => $subtotal,
                 'shipping_cost' => $shippingCost,
                 'tax' => 0.00,
@@ -156,7 +150,7 @@ class CheckoutController extends Controller
         });
 
         // Initialize payment intent
-        $paymentManager = app(\App\Services\Payment\PaymentManager::class);
+        $paymentManager = app(PaymentManager::class);
         $paymentResult = $paymentManager->driver()->createPaymentIntent($order, $validated['payment_method']);
 
         $order->update([

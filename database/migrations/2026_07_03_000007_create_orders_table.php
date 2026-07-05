@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('status')->default('pending');
             $table->string('tracking_number')->nullable();
             $table->string('shipping_label_url')->nullable();
-            
+
             // Address snapshot columns
             $table->string('shipping_name');
             $table->string('shipping_phone');
@@ -33,7 +33,7 @@ return new class extends Migration
             $table->string('shipping_state_province')->nullable();
             $table->string('shipping_postal_code');
             $table->string('shipping_country_code', 2);
-            
+
             $table->timestamps();
         });
     }

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\Supplier;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -13,8 +16,6 @@ class ProductController extends Controller
 {
     /**
      * Display a listing of the products.
-     *
-     * @return Response
      */
     public function index(Request $request): Response
     {
@@ -51,19 +52,15 @@ class ProductController extends Controller
 
         return Inertia::render('admin/products/Index', [
             'products' => $products,
-            'categories' => \App\Models\Category::all(),
-            'brands' => \App\Models\Brand::orderBy('name')->get(),
-            'suppliers' => \App\Models\Supplier::orderBy('name')->get(),
+            'categories' => Category::all(),
+            'brands' => Brand::orderBy('name')->get(),
+            'suppliers' => Supplier::orderBy('name')->get(),
             'filters' => $request->only(['category_id', 'brand_id', 'supplier_id', 'price_min', 'price_max']),
         ]);
     }
 
     /**
      * Update the specified product in storage.
-     *
-     * @param Request $request
-     * @param Product $product
-     * @return RedirectResponse
      */
     public function update(Request $request, Product $product): RedirectResponse
     {
@@ -81,9 +78,6 @@ class ProductController extends Controller
 
     /**
      * Remove the specified product from storage (soft delete).
-     *
-     * @param Product $product
-     * @return RedirectResponse
      */
     public function destroy(Product $product): RedirectResponse
     {

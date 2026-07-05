@@ -7,6 +7,8 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
@@ -36,12 +38,11 @@ class User extends Authenticatable implements PasskeyUser
     use HasApiTokens, HasFactory, Notifiable, PasskeyAuthenticatable, TwoFactorAuthenticatable;
 
     public const ROLE_USER = 'user';
+
     public const ROLE_ADMIN = 'admin';
 
     /**
      * Check if user has admin role privileges.
-     *
-     * @return bool
      */
     public function isAdmin(): bool
     {
@@ -62,17 +63,17 @@ class User extends Authenticatable implements PasskeyUser
         ];
     }
 
-    public function addresses(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function addresses(): HasMany
     {
         return $this->hasMany(UserAddress::class);
     }
 
-    public function cart(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function cart(): HasOne
     {
         return $this->hasOne(Cart::class);
     }
 
-    public function orders(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
     }

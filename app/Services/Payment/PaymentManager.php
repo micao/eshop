@@ -25,7 +25,7 @@ class PaymentManager extends Manager
      */
     public function createMockDriver()
     {
-        return new MockPaymentGateway();
+        return new MockPaymentGateway;
     }
 
     /**

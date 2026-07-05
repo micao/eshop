@@ -27,7 +27,7 @@ class AuthControllerTest extends TestCase
         $response->assertStatus(201)
             ->assertJsonStructure([
                 'token',
-                'user' => ['id', 'name', 'email']
+                'user' => ['id', 'name', 'email'],
             ])
             ->assertJsonPath('user.email', 'test@example.com');
     }

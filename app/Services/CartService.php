@@ -12,9 +12,6 @@ class CartService
 {
     /**
      * Compile cart details for an authenticated user.
-     *
-     * @param User $user
-     * @return array
      */
     public function getCartDetailsForUser(User $user): array
     {
@@ -26,7 +23,9 @@ class CartService
 
         foreach ($cart->items as $item) {
             $variant = $item->variant;
-            if (!$variant) continue;
+            if (! $variant) {
+                continue;
+            }
 
             $product = $variant->product;
             $price = floatval($variant->price);
@@ -37,7 +36,7 @@ class CartService
                 'cart_item_id' => $item->id,
                 'variant_id' => $variant->id,
                 'sku' => $variant->sku,
-                'name' => $product ? "{$product->name} - " . $this->formatOptions($variant->options) : $variant->name,
+                'name' => $product ? "{$product->name} - ".$this->formatOptions($variant->options) : $variant->name,
                 'price' => $price,
                 'quantity' => $item->quantity,
                 'available_stock' => $variant->inventory_quantity,
@@ -65,8 +64,7 @@ class CartService
     /**
      * Compile cart details for a guest user using a list of variant quantities.
      *
-     * @param array $guestItems List of ['variant_id' => X, 'quantity' => Y]
-     * @return array
+     * @param  array  $guestItems  List of ['variant_id' => X, 'quantity' => Y]
      */
     public function getCartDetailsForGuest(array $guestItems): array
     {
@@ -100,7 +98,9 @@ class CartService
 
         foreach ($variants as $variant) {
             $qty = $quantities[$variant->id] ?? 0;
-            if ($qty <= 0) continue;
+            if ($qty <= 0) {
+                continue;
+            }
 
             $product = $variant->product;
             $price = floatval($variant->price);
@@ -111,7 +111,7 @@ class CartService
                 'cart_item_id' => null, // Guest items don't have DB cart_item record ids
                 'variant_id' => $variant->id,
                 'sku' => $variant->sku,
-                'name' => $product ? "{$product->name} - " . $this->formatOptions($variant->options) : $variant->name,
+                'name' => $product ? "{$product->name} - ".$this->formatOptions($variant->options) : $variant->name,
                 'price' => $price,
                 'quantity' => $qty,
                 'available_stock' => $variant->inventory_quantity,
@@ -139,9 +139,6 @@ class CartService
     /**
      * Add a variant item to the user's cart, verifying stock availability.
      *
-     * @param User $user
-     * @param int $variantId
-     * @param int $quantity
      * @throws \Exception
      */
     public function addItemToUserCart(User $user, int $variantId, int $quantity): void
@@ -153,7 +150,7 @@ class CartService
         $targetQuantity = ($existingItem ? $existingItem->quantity : 0) + $quantity;
 
         // Perform stock availability validation
-        if ($variant->track_inventory && !$variant->continue_selling_out_of_stock) {
+        if ($variant->track_inventory && ! $variant->continue_selling_out_of_stock) {
             if ($targetQuantity > $variant->inventory_quantity) {
                 throw new \Exception("Cannot add requested quantity. Only {$variant->inventory_quantity} units available.");
             }
@@ -173,15 +170,13 @@ class CartService
     /**
      * Update the quantity of a specific item in the user's cart.
      *
-     * @param User $user
-     * @param int $cartItemId
-     * @param int $quantity
      * @throws \Exception
      */
     public function updateItemInUserCart(User $user, int $cartItemId, int $quantity): void
     {
         if ($quantity <= 0) {
             $this->removeItemFromUserCart($user, $cartItemId);
+
             return;
         }
 
@@ -189,7 +184,7 @@ class CartService
         $item = $cart->items()->findOrFail($cartItemId);
         $variant = $item->variant;
 
-        if ($variant && $variant->track_inventory && !$variant->continue_selling_out_of_stock) {
+        if ($variant && $variant->track_inventory && ! $variant->continue_selling_out_of_stock) {
             if ($quantity > $variant->inventory_quantity) {
                 throw new \Exception("Cannot update quantity. Only {$variant->inventory_quantity} units available.");
             }
@@ -200,9 +195,6 @@ class CartService
 
     /**
      * Remove a specific item from the user's cart.
-     *
-     * @param User $user
-     * @param int $cartItemId
      */
     public function removeItemFromUserCart(User $user, int $cartItemId): void
     {
@@ -213,8 +205,6 @@ class CartService
 
     /**
      * Clear all items from the user's cart.
-     *
-     * @param User $user
      */
     public function clearUserCart(User $user): void
     {
@@ -226,17 +216,18 @@ class CartService
 
     /**
      * Merge guest cart items into the authenticated user's cart.
-     *
-     * @param User $user
-     * @param array $guestItems
      */
     public function mergeGuestCart(User $user, array $guestItems): void
     {
-        if (empty($guestItems)) return;
+        if (empty($guestItems)) {
+            return;
+        }
 
         DB::transaction(function () use ($user, $guestItems) {
             foreach ($guestItems as $item) {
-                if (empty($item['variant_id']) || empty($item['quantity'])) continue;
+                if (empty($item['variant_id']) || empty($item['quantity'])) {
+                    continue;
+                }
 
                 try {
                     $this->addItemToUserCart($user, intval($item['variant_id']), intval($item['quantity']));
@@ -250,13 +241,13 @@ class CartService
 
     /**
      * Helper to format variant options.
-     *
-     * @param array|null $options
-     * @return string
      */
     private function formatOptions(?array $options): string
     {
-        if (empty($options)) return 'Default';
+        if (empty($options)) {
+            return 'Default';
+        }
+
         return implode(' / ', array_values($options));
     }
 }

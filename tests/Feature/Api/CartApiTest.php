@@ -26,8 +26,8 @@ class CartApiTest extends TestCase
 
         $response = $this->postJson('/api/cart/details', [
             'items' => [
-                ['variant_id' => $variant->id, 'quantity' => 2]
-            ]
+                ['variant_id' => $variant->id, 'quantity' => 2],
+            ],
         ]);
 
         $response->assertOk()
@@ -75,14 +75,14 @@ class CartApiTest extends TestCase
         // Update quantity
         $this->actingAs($user)
             ->putJson("/api/cart/items/{$cartItemId}", [
-                'quantity' => 3
+                'quantity' => 3,
             ])
             ->assertOk();
 
         // Check stock limit validation
         $this->actingAs($user)
             ->putJson("/api/cart/items/{$cartItemId}", [
-                'quantity' => 6
+                'quantity' => 6,
             ])
             ->assertStatus(422)
             ->assertJsonFragment(['message' => 'Cannot update quantity. Only 5 units available.']);
@@ -114,8 +114,8 @@ class CartApiTest extends TestCase
         $this->actingAs($user)
             ->postJson('/api/cart/merge', [
                 'items' => [
-                    ['variant_id' => $variant->id, 'quantity' => 3]
-                ]
+                    ['variant_id' => $variant->id, 'quantity' => 3],
+                ],
             ])
             ->assertOk();
 

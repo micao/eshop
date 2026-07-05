@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Variant;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class ProductSeeder extends Seeder
 {
@@ -24,11 +24,11 @@ class ProductSeeder extends Seeder
                 'thumbnail' => 'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=300&q=80',
                 'images' => [
                     'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=600&q=80',
-                    'https://images.unsplash.com/photo-1565630916779-e303be97b6f5?auto=format&fit=crop&w=600&q=80'
+                    'https://images.unsplash.com/photo-1565630916779-e303be97b6f5?auto=format&fit=crop&w=600&q=80',
                 ],
                 'options' => [
                     ['name' => 'Storage', 'values' => ['128GB', '256GB']],
-                    ['name' => 'Color', 'values' => ['Black']]
+                    ['name' => 'Color', 'values' => ['Black']],
                 ],
                 'variants' => [
                     [
@@ -47,7 +47,7 @@ class ProductSeeder extends Seeder
                         'height' => 14.76,
                         'depth' => 0.78,
                         'dimension_unit' => 'cm',
-                        'options' => ['Storage' => '128GB', 'Color' => 'Black']
+                        'options' => ['Storage' => '128GB', 'Color' => 'Black'],
                     ],
                     [
                         'name' => 'iPhone 15 - Black / 256GB',
@@ -65,9 +65,9 @@ class ProductSeeder extends Seeder
                         'height' => 14.76,
                         'depth' => 0.78,
                         'dimension_unit' => 'cm',
-                        'options' => ['Storage' => '256GB', 'Color' => 'Black']
-                    ]
-                ]
+                        'options' => ['Storage' => '256GB', 'Color' => 'Black'],
+                    ],
+                ],
             ],
             [
                 'name' => 'MacBook Air M3',
@@ -78,11 +78,11 @@ class ProductSeeder extends Seeder
                 'thumbnail' => 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=300&q=80',
                 'images' => [
                     'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80',
-                    'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=600&q=80'
+                    'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=600&q=80',
                 ],
                 'options' => [
                     ['name' => 'RAM', 'values' => ['8GB', '16GB']],
-                    ['name' => 'Storage', 'values' => ['512GB']]
+                    ['name' => 'Storage', 'values' => ['512GB']],
                 ],
                 'variants' => [
                     [
@@ -101,7 +101,7 @@ class ProductSeeder extends Seeder
                         'height' => 21.50,
                         'depth' => 1.13,
                         'dimension_unit' => 'cm',
-                        'options' => ['RAM' => '8GB', 'Storage' => '512GB']
+                        'options' => ['RAM' => '8GB', 'Storage' => '512GB'],
                     ],
                     [
                         'name' => 'MacBook Air - 16GB / 512GB',
@@ -119,9 +119,9 @@ class ProductSeeder extends Seeder
                         'height' => 21.50,
                         'depth' => 1.13,
                         'dimension_unit' => 'cm',
-                        'options' => ['RAM' => '16GB', 'Storage' => '512GB']
-                    ]
-                ]
+                        'options' => ['RAM' => '16GB', 'Storage' => '512GB'],
+                    ],
+                ],
             ],
             [
                 'name' => 'Sony WH-1000XM5',
@@ -131,10 +131,10 @@ class ProductSeeder extends Seeder
                 'status' => 'active',
                 'thumbnail' => 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=300&q=80',
                 'images' => [
-                    'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80'
+                    'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80',
                 ],
                 'options' => [
-                    ['name' => 'Color', 'values' => ['Black', 'Silver']]
+                    ['name' => 'Color', 'values' => ['Black', 'Silver']],
                 ],
                 'variants' => [
                     [
@@ -153,7 +153,7 @@ class ProductSeeder extends Seeder
                         'height' => 26.00,
                         'depth' => 7.50,
                         'dimension_unit' => 'cm',
-                        'options' => ['Color' => 'Black']
+                        'options' => ['Color' => 'Black'],
                     ],
                     [
                         'name' => 'Sony WH-1000XM5 - Silver',
@@ -171,9 +171,9 @@ class ProductSeeder extends Seeder
                         'height' => 26.00,
                         'depth' => 7.50,
                         'dimension_unit' => 'cm',
-                        'options' => ['Color' => 'Silver']
-                    ]
-                ]
+                        'options' => ['Color' => 'Silver'],
+                    ],
+                ],
             ],
             [
                 'name' => 'Nike Air Zoom Pegasus 40',
@@ -183,11 +183,11 @@ class ProductSeeder extends Seeder
                 'status' => 'active',
                 'thumbnail' => 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=300&q=80',
                 'images' => [
-                    'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80'
+                    'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80',
                 ],
                 'options' => [
                     ['name' => 'Size', 'values' => ['US 9', 'US 10']],
-                    ['name' => 'Color', 'values' => ['White']]
+                    ['name' => 'Color', 'values' => ['White']],
                 ],
                 'variants' => [
                     [
@@ -206,7 +206,7 @@ class ProductSeeder extends Seeder
                         'height' => 33.00,
                         'depth' => 12.00,
                         'dimension_unit' => 'cm',
-                        'options' => ['Size' => 'US 9', 'Color' => 'White']
+                        'options' => ['Size' => 'US 9', 'Color' => 'White'],
                     ],
                     [
                         'name' => 'Nike Pegasus 40 - US 10',
@@ -224,9 +224,9 @@ class ProductSeeder extends Seeder
                         'height' => 33.00,
                         'depth' => 12.00,
                         'dimension_unit' => 'cm',
-                        'options' => ['Size' => 'US 10', 'Color' => 'White']
-                    ]
-                ]
+                        'options' => ['Size' => 'US 10', 'Color' => 'White'],
+                    ],
+                ],
             ],
             [
                 'name' => 'Apple Watch Series 9',
@@ -236,10 +236,10 @@ class ProductSeeder extends Seeder
                 'status' => 'active',
                 'thumbnail' => 'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=300&q=80',
                 'images' => [
-                    'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=600&q=80'
+                    'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=600&q=80',
                 ],
                 'options' => [
-                    ['name' => 'Size', 'values' => ['41mm', '45mm']]
+                    ['name' => 'Size', 'values' => ['41mm', '45mm']],
                 ],
                 'variants' => [
                     [
@@ -258,7 +258,7 @@ class ProductSeeder extends Seeder
                         'height' => 4.10,
                         'depth' => 1.07,
                         'dimension_unit' => 'cm',
-                        'options' => ['Size' => '41mm']
+                        'options' => ['Size' => '41mm'],
                     ],
                     [
                         'name' => 'Apple Watch S9 - 45mm',
@@ -276,9 +276,9 @@ class ProductSeeder extends Seeder
                         'height' => 4.50,
                         'depth' => 1.07,
                         'dimension_unit' => 'cm',
-                        'options' => ['Size' => '45mm']
-                    ]
-                ]
+                        'options' => ['Size' => '45mm'],
+                    ],
+                ],
             ],
             [
                 'name' => 'DeLonghi Magnifica Start',
@@ -288,10 +288,10 @@ class ProductSeeder extends Seeder
                 'status' => 'active',
                 'thumbnail' => 'https://images.unsplash.com/photo-1517256064527-09c53b2d0bc6?auto=format&fit=crop&w=300&q=80',
                 'images' => [
-                    'https://images.unsplash.com/photo-1517256064527-09c53b2d0bc6?auto=format&fit=crop&w=600&q=80'
+                    'https://images.unsplash.com/photo-1517256064527-09c53b2d0bc6?auto=format&fit=crop&w=600&q=80',
                 ],
                 'options' => [
-                    ['name' => 'Color', 'values' => ['Black', 'Silver']]
+                    ['name' => 'Color', 'values' => ['Black', 'Silver']],
                 ],
                 'variants' => [
                     [
@@ -310,7 +310,7 @@ class ProductSeeder extends Seeder
                         'height' => 35.00,
                         'depth' => 44.00,
                         'dimension_unit' => 'cm',
-                        'options' => ['Color' => 'Black']
+                        'options' => ['Color' => 'Black'],
                     ],
                     [
                         'name' => 'Magnifica Start - Silver',
@@ -328,9 +328,9 @@ class ProductSeeder extends Seeder
                         'height' => 35.00,
                         'depth' => 44.00,
                         'dimension_unit' => 'cm',
-                        'options' => ['Color' => 'Silver']
-                    ]
-                ]
+                        'options' => ['Color' => 'Silver'],
+                    ],
+                ],
             ],
             [
                 'name' => 'Herman Miller Aeron Chair',
@@ -340,10 +340,10 @@ class ProductSeeder extends Seeder
                 'status' => 'active',
                 'thumbnail' => 'https://images.unsplash.com/photo-1580481072645-022f9a6dbf27?auto=format&fit=crop&w=300&q=80',
                 'images' => [
-                    'https://images.unsplash.com/photo-1580481072645-022f9a6dbf27?auto=format&fit=crop&w=600&q=80'
+                    'https://images.unsplash.com/photo-1580481072645-022f9a6dbf27?auto=format&fit=crop&w=600&q=80',
                 ],
                 'options' => [
-                    ['name' => 'Size', 'values' => ['Size B', 'Size C']]
+                    ['name' => 'Size', 'values' => ['Size B', 'Size C']],
                 ],
                 'variants' => [
                     [
@@ -362,7 +362,7 @@ class ProductSeeder extends Seeder
                         'height' => 104.00,
                         'depth' => 43.00,
                         'dimension_unit' => 'cm',
-                        'options' => ['Size' => 'Size B']
+                        'options' => ['Size' => 'Size B'],
                     ],
                     [
                         'name' => 'Aeron Chair - Size C',
@@ -380,9 +380,9 @@ class ProductSeeder extends Seeder
                         'height' => 109.00,
                         'depth' => 47.00,
                         'dimension_unit' => 'cm',
-                        'options' => ['Size' => 'Size C']
-                    ]
-                ]
+                        'options' => ['Size' => 'Size C'],
+                    ],
+                ],
             ],
             [
                 'name' => 'Sony PlayStation 5',
@@ -392,10 +392,10 @@ class ProductSeeder extends Seeder
                 'status' => 'active',
                 'thumbnail' => 'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=300&q=80',
                 'images' => [
-                    'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=600&q=80'
+                    'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=600&q=80',
                 ],
                 'options' => [
-                    ['name' => 'Model', 'values' => ['Digital Edition', 'Disc Edition']]
+                    ['name' => 'Model', 'values' => ['Digital Edition', 'Disc Edition']],
                 ],
                 'variants' => [
                     [
@@ -414,7 +414,7 @@ class ProductSeeder extends Seeder
                         'height' => 9.20,
                         'depth' => 26.00,
                         'dimension_unit' => 'cm',
-                        'options' => ['Model' => 'Digital Edition']
+                        'options' => ['Model' => 'Digital Edition'],
                     ],
                     [
                         'name' => 'PlayStation 5 - Disc Edition',
@@ -432,9 +432,9 @@ class ProductSeeder extends Seeder
                         'height' => 10.40,
                         'depth' => 26.00,
                         'dimension_unit' => 'cm',
-                        'options' => ['Model' => 'Disc Edition']
-                    ]
-                ]
+                        'options' => ['Model' => 'Disc Edition'],
+                    ],
+                ],
             ],
             [
                 'name' => 'Hydro Flask 32 oz',
@@ -444,10 +444,10 @@ class ProductSeeder extends Seeder
                 'status' => 'active',
                 'thumbnail' => 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=300&q=80',
                 'images' => [
-                    'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=600&q=80'
+                    'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=600&q=80',
                 ],
                 'options' => [
-                    ['name' => 'Color', 'values' => ['Pacific', 'Snapper']]
+                    ['name' => 'Color', 'values' => ['Pacific', 'Snapper']],
                 ],
                 'variants' => [
                     [
@@ -466,7 +466,7 @@ class ProductSeeder extends Seeder
                         'height' => 25.00,
                         'depth' => 9.10,
                         'dimension_unit' => 'cm',
-                        'options' => ['Color' => 'Pacific']
+                        'options' => ['Color' => 'Pacific'],
                     ],
                     [
                         'name' => 'Hydro Flask 32 oz - Snapper',
@@ -484,9 +484,9 @@ class ProductSeeder extends Seeder
                         'height' => 25.00,
                         'depth' => 9.10,
                         'dimension_unit' => 'cm',
-                        'options' => ['Color' => 'Snapper']
-                    ]
-                ]
+                        'options' => ['Color' => 'Snapper'],
+                    ],
+                ],
             ],
             [
                 'name' => 'Peak Design Everyday Backpack 20L',
@@ -496,10 +496,10 @@ class ProductSeeder extends Seeder
                 'status' => 'active',
                 'thumbnail' => 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=300&q=80',
                 'images' => [
-                    'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80'
+                    'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80',
                 ],
                 'options' => [
-                    ['name' => 'Color', 'values' => ['Charcoal', 'Ash']]
+                    ['name' => 'Color', 'values' => ['Charcoal', 'Ash']],
                 ],
                 'variants' => [
                     [
@@ -518,7 +518,7 @@ class ProductSeeder extends Seeder
                         'height' => 46.00,
                         'depth' => 17.00,
                         'dimension_unit' => 'cm',
-                        'options' => ['Color' => 'Charcoal']
+                        'options' => ['Color' => 'Charcoal'],
                     ],
                     [
                         'name' => 'Everyday Backpack 20L - Ash',
@@ -536,15 +536,15 @@ class ProductSeeder extends Seeder
                         'height' => 46.00,
                         'depth' => 17.00,
                         'dimension_unit' => 'cm',
-                        'options' => ['Color' => 'Ash']
-                    ]
-                ]
-            ]
+                        'options' => ['Color' => 'Ash'],
+                    ],
+                ],
+            ],
         ];
 
         // Create default categories
-        $electronics = \App\Models\Category::firstOrCreate(['slug' => 'electronics'], ['name' => 'Electronics']);
-        $accessories = \App\Models\Category::firstOrCreate(['slug' => 'accessories'], ['name' => 'Accessories']);
+        $electronics = Category::firstOrCreate(['slug' => 'electronics'], ['name' => 'Electronics']);
+        $accessories = Category::firstOrCreate(['slug' => 'accessories'], ['name' => 'Accessories']);
 
         foreach ($productsData as $pData) {
             $variantsData = $pData['variants'];

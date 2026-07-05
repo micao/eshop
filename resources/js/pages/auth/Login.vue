@@ -83,17 +83,17 @@ defineProps<{
                 <InputError :message="errors.password" />
             </div>
 
-            <div class="flex items-center justify-between">
-                <Label for="remember" class="flex items-center space-x-3 cursor-pointer select-none">
-                    <input 
-                        type="checkbox" 
-                        id="remember" 
-                        name="remember" 
-                        value="1"
-                        class="h-4 w-4 rounded border-zinc-300 text-orange-500 focus:ring-orange-500 dark:border-zinc-800 dark:bg-zinc-950 dark:focus:ring-orange-500" 
-                        :tabindex="3" 
-                    />
-                    <span>Remember me</span>
+            <div class="flex items-center space-x-3">
+                <input 
+                    type="checkbox" 
+                    id="remember" 
+                    name="remember" 
+                    value="1"
+                    class="h-4 w-4 rounded border-zinc-300 text-orange-500 focus:ring-orange-500 dark:border-zinc-800 dark:bg-zinc-950 dark:focus:ring-orange-500" 
+                    :tabindex="3" 
+                />
+                <Label for="remember" class="text-sm font-medium text-foreground cursor-pointer select-none">
+                    Remember me
                 </Label>
             </div>
 

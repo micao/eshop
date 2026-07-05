@@ -9,27 +9,20 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    public function __construct(protected CartService $cartService)
-    {
-    }
+    public function __construct(protected CartService $cartService) {}
 
     /**
      * Get authenticated user's cart details.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function index(Request $request): JsonResponse
     {
         $details = $this->cartService->getCartDetailsForUser($request->user());
+
         return response()->json($details);
     }
 
     /**
      * Add item to authenticated user's cart.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function store(Request $request): JsonResponse
     {
@@ -44,6 +37,7 @@ class CartController extends Controller
                 $validated['variant_id'],
                 $validated['quantity']
             );
+
             return response()->json(['message' => 'Item added to cart successfully.']);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 422);
@@ -53,9 +47,7 @@ class CartController extends Controller
     /**
      * Update cart item quantity.
      *
-     * @param Request $request
-     * @param mixed $cartItemId
-     * @return JsonResponse
+     * @param  mixed  $cartItemId
      */
     public function update(Request $request, $cartItemId): JsonResponse
     {
@@ -69,6 +61,7 @@ class CartController extends Controller
                 intval($cartItemId),
                 $validated['quantity']
             );
+
             return response()->json(['message' => 'Cart updated successfully.']);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 422);
@@ -78,33 +71,27 @@ class CartController extends Controller
     /**
      * Remove single item from cart.
      *
-     * @param Request $request
-     * @param mixed $cartItemId
-     * @return JsonResponse
+     * @param  mixed  $cartItemId
      */
     public function destroy(Request $request, $cartItemId): JsonResponse
     {
         $this->cartService->removeItemFromUserCart($request->user(), intval($cartItemId));
+
         return response()->json(['message' => 'Item removed from cart.']);
     }
 
     /**
      * Clear all items from cart.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function clear(Request $request): JsonResponse
     {
         $this->cartService->clearUserCart($request->user());
+
         return response()->json(['message' => 'Cart cleared.']);
     }
 
     /**
      * Post-query compiled cart details for guest local storage items.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function guestDetails(Request $request): JsonResponse
     {
@@ -115,14 +102,12 @@ class CartController extends Controller
         ]);
 
         $details = $this->cartService->getCartDetailsForGuest($validated['items']);
+
         return response()->json($details);
     }
 
     /**
      * Merge guest cart items into authenticated user's cart.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function merge(Request $request): JsonResponse
     {
@@ -133,6 +118,7 @@ class CartController extends Controller
         ]);
 
         $this->cartService->mergeGuestCart($request->user(), $validated['items']);
+
         return response()->json(['message' => 'Cart merged successfully.']);
     }
 }

@@ -20,7 +20,7 @@ class ProductWebControllerTest extends TestCase
         $product = Product::factory()->create();
         $responsePut = $this->put("/admin/products/{$product->id}", [
             'name' => 'New Title',
-            'status' => 'active'
+            'status' => 'active',
         ]);
         $responsePut->assertRedirect('/login');
 
@@ -38,7 +38,7 @@ class ProductWebControllerTest extends TestCase
         $product = Product::factory()->create();
         $responsePut = $this->actingAs($user)->put("/admin/products/{$product->id}", [
             'name' => 'New Title',
-            'status' => 'active'
+            'status' => 'active',
         ]);
         $responsePut->assertStatus(403);
     }
@@ -66,24 +66,24 @@ class ProductWebControllerTest extends TestCase
         $product = Product::factory()->create([
             'name' => 'Original Name',
             'slug' => 'original-slug',
-            'status' => 'draft'
+            'status' => 'draft',
         ]);
 
         $response = $this->actingAs($user)->put("/admin/products/{$product->id}", [
             'name' => 'Updated Name',
             'status' => 'active',
             'summary' => 'New Summary',
-            'description' => 'New Description'
+            'description' => 'New Description',
         ]);
 
         $response->assertRedirect();
-        
+
         $this->assertDatabaseHas('products', [
             'id' => $product->id,
             'name' => 'Updated Name',
             'status' => 'active',
             'summary' => 'New Summary',
-            'description' => 'New Description'
+            'description' => 'New Description',
         ]);
     }
 
@@ -97,7 +97,7 @@ class ProductWebControllerTest extends TestCase
         $response->assertRedirect();
 
         $this->assertSoftDeleted('products', [
-            'id' => $product->id
+            'id' => $product->id,
         ]);
     }
 }

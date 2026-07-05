@@ -24,6 +24,6 @@ class ShippingManager extends Manager
      */
     public function createFlatRateDriver()
     {
-        return new FlatRateDriver();
+        return new FlatRateDriver;
     }
 }

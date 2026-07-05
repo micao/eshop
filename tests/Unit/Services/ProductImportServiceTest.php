@@ -19,7 +19,7 @@ class ProductImportServiceTest extends TestCase
         parent::setUp();
         Storage::fake();
         Queue::fake();
-        $this->importService = new ProductImportService();
+        $this->importService = new ProductImportService;
     }
 
     public function test_import_throws_exception_when_filename_is_invalid(): void
@@ -47,10 +47,10 @@ class ProductImportServiceTest extends TestCase
 
         $storedPath = $this->importService->importFile($file, $fileName);
 
-        $this->assertEquals('imports/' . $fileName, $storedPath);
+        $this->assertEquals('imports/'.$fileName, $storedPath);
 
         // Verify storage write and queue dispatch
-        Storage::assertExists('imports/' . $fileName);
+        Storage::assertExists('imports/'.$fileName);
         Queue::assertPushed(ProcessCsvImportJob::class, function ($job) use ($storedPath, $fileName) {
             return $job->filePath === $storedPath && $job->fileName === $fileName && $job->connection === 'rabbitmq';
         });
@@ -64,11 +64,11 @@ class ProductImportServiceTest extends TestCase
 
         $storedPath = $this->importService->importFile($tempFile, $fileName);
 
-        $this->assertEquals('imports/' . $fileName, $storedPath);
+        $this->assertEquals('imports/'.$fileName, $storedPath);
 
         // Verify storage write and queue dispatch
-        Storage::assertExists('imports/' . $fileName);
-        $this->assertEquals('dummy csv row content', Storage::get('imports/' . $fileName));
+        Storage::assertExists('imports/'.$fileName);
+        $this->assertEquals('dummy csv row content', Storage::get('imports/'.$fileName));
 
         Queue::assertPushed(ProcessCsvImportJob::class, function ($job) use ($storedPath, $fileName) {
             return $job->filePath === $storedPath && $job->fileName === $fileName && $job->connection === 'rabbitmq';

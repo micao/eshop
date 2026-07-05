@@ -48,7 +48,7 @@ class ProductImportControllerTest extends TestCase
         $file = UploadedFile::fake()->create('invalid_name.csv', 100, 'text/csv');
 
         $response = $this->postJson('/api/products/import', [
-            'files' => [$file]
+            'files' => [$file],
         ]);
 
         $response->assertStatus(422)
@@ -68,7 +68,7 @@ class ProductImportControllerTest extends TestCase
         $file2 = UploadedFile::fake()->create('2026_06_30_1782860289_product_2.csv', 100, 'text/csv');
 
         $response = $this->postJson('/api/products/import', [
-            'files' => [$file1, $file2]
+            'files' => [$file1, $file2],
         ]);
 
         $response->assertStatus(202)
@@ -86,11 +86,11 @@ class ProductImportControllerTest extends TestCase
     public function test_process_csv_import_job_inserts_products_and_variants(): void
     {
         // 1. Arrange: Write mock CSV content to local fake disk
-        $csvContent = 'product_category,product_name,product_slug,product_brand,product_supplier,product_description,product_summary,product_status,product_thumbnail,product_images,product_options,variant_name,variant_sku,variant_barcode,variant_price,variant_compare_at_price,variant_cost_price,variant_inventory_quantity,variant_track_inventory,variant_continue_selling_out_of_stock,variant_weight,variant_weight_unit,variant_width,variant_height,variant_depth,variant_dimension_unit,variant_options' . "\n"
-            . '"Electronics","Test Pro Keyboard",test-pro-keyboard,"Logitech","Logitech Distribution","Mechanical keyboard with brown switches","Ergonomic keyboard.",active,http://example.com/thumb.jpg,"[""http://example.com/img1.jpg""]","[{""name"":""Layout"",""values"":[""ANSI"",""ISO""]}]","Test Pro Keyboard - ANSI / Brown",KBD-00001,1234567890123,99.99,119.99,49.99,10,1,0,850,g,40,15,3,cm,"{""Layout"":""ANSI""}"';
+        $csvContent = 'product_category,product_name,product_slug,product_brand,product_supplier,product_description,product_summary,product_status,product_thumbnail,product_images,product_options,variant_name,variant_sku,variant_barcode,variant_price,variant_compare_at_price,variant_cost_price,variant_inventory_quantity,variant_track_inventory,variant_continue_selling_out_of_stock,variant_weight,variant_weight_unit,variant_width,variant_height,variant_depth,variant_dimension_unit,variant_options'."\n"
+            .'"Electronics","Test Pro Keyboard",test-pro-keyboard,"Logitech","Logitech Distribution","Mechanical keyboard with brown switches","Ergonomic keyboard.",active,http://example.com/thumb.jpg,"[""http://example.com/img1.jpg""]","[{""name"":""Layout"",""values"":[""ANSI"",""ISO""]}]","Test Pro Keyboard - ANSI / Brown",KBD-00001,1234567890123,99.99,119.99,49.99,10,1,0,850,g,40,15,3,cm,"{""Layout"":""ANSI""}"';
 
         $fileName = '2026_06_30_1782860289_product_1.csv';
-        $filePath = 'imports/' . $fileName;
+        $filePath = 'imports/'.$fileName;
         Storage::put($filePath, $csvContent);
 
         // 2. Act: Instantiating and executing the Job manually with the file path
@@ -100,17 +100,17 @@ class ProductImportControllerTest extends TestCase
         // 3. Assert: Verify database counts and exact field values
         $this->assertDatabaseHas('categories', [
             'name' => 'Electronics',
-            'slug' => 'electronics'
+            'slug' => 'electronics',
         ]);
 
         $this->assertDatabaseHas('brands', [
             'name' => 'Logitech',
-            'slug' => 'logitech'
+            'slug' => 'logitech',
         ]);
 
         $this->assertDatabaseHas('suppliers', [
             'name' => 'Logitech Distribution',
-            'slug' => 'logitech-distribution'
+            'slug' => 'logitech-distribution',
         ]);
 
         $product = Product::where('slug', 'test-pro-keyboard')->first();
@@ -127,7 +127,7 @@ class ProductImportControllerTest extends TestCase
             'price' => 99.99,
             'cost_price' => 49.99,
             'inventory_quantity' => 10,
-            'options->Layout' => 'ANSI'
+            'options->Layout' => 'ANSI',
         ]);
 
         // Verify the file was cleaned up/deleted from disk upon complete
@@ -140,14 +140,14 @@ class ProductImportControllerTest extends TestCase
         $existingProduct = Product::factory()->create([
             'name' => 'Old Name',
             'slug' => 'matched-slug',
-            'status' => 'active'
+            'status' => 'active',
         ]);
 
-        $csvContent = 'product_category,product_name,product_slug,product_description,product_summary,product_status,product_thumbnail,product_images,product_options,variant_name,variant_sku,variant_barcode,variant_price,variant_compare_at_price,variant_cost_price,variant_inventory_quantity,variant_track_inventory,variant_continue_selling_out_of_stock,variant_weight,variant_weight_unit,variant_width,variant_height,variant_depth,variant_dimension_unit,variant_options' . "\n"
-            . '"Electronics","New Name",matched-slug,"Updated description","Updated summary.",active,http://example.com/thumb.jpg,"[]","[]","New Name - Default",NEW-SKU-001,9876543210987,49.99,,20.00,5,1,0,300,g,10,10,10,cm,"[]"';
+        $csvContent = 'product_category,product_name,product_slug,product_description,product_summary,product_status,product_thumbnail,product_images,product_options,variant_name,variant_sku,variant_barcode,variant_price,variant_compare_at_price,variant_cost_price,variant_inventory_quantity,variant_track_inventory,variant_continue_selling_out_of_stock,variant_weight,variant_weight_unit,variant_width,variant_height,variant_depth,variant_dimension_unit,variant_options'."\n"
+            .'"Electronics","New Name",matched-slug,"Updated description","Updated summary.",active,http://example.com/thumb.jpg,"[]","[]","New Name - Default",NEW-SKU-001,9876543210987,49.99,,20.00,5,1,0,300,g,10,10,10,cm,"[]"';
 
         $fileName = '2026_06_30_1782860289_product_2.csv';
-        $filePath = 'imports/' . $fileName;
+        $filePath = 'imports/'.$fileName;
         Storage::put($filePath, $csvContent);
 
         // Act

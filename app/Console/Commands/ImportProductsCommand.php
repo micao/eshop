@@ -43,13 +43,14 @@ class ImportProductsCommand extends Command
         foreach ($files as $filePath) {
             // Check relative to base path
             $fullPath = base_path($filePath);
-            
-            if (!file_exists($fullPath)) {
+
+            if (! file_exists($fullPath)) {
                 $fullPath = $filePath;
             }
 
-            if (!file_exists($fullPath)) {
+            if (! file_exists($fullPath)) {
                 $this->error("File not found: {$filePath}");
+
                 continue;
             }
 

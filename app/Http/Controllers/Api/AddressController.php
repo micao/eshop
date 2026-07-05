@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\UserAddress;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -11,21 +10,16 @@ class AddressController extends Controller
 {
     /**
      * Get list of addresses for the authenticated user.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function index(Request $request): JsonResponse
     {
         $addresses = $request->user()->addresses()->orderBy('is_default', 'desc')->get();
+
         return response()->json($addresses);
     }
 
     /**
      * Store a newly created address in storage.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function store(Request $request): JsonResponse
     {
@@ -44,7 +38,7 @@ class AddressController extends Controller
         $user = $request->user();
 
         // If marked default, unset previous default addresses
-        if (!empty($validated['is_default'])) {
+        if (! empty($validated['is_default'])) {
             $user->addresses()->update(['is_default' => false]);
         }
 
@@ -64,9 +58,7 @@ class AddressController extends Controller
     /**
      * Remove the specified address from storage.
      *
-     * @param Request $request
-     * @param mixed $id
-     * @return JsonResponse
+     * @param  mixed  $id
      */
     public function destroy(Request $request, $id): JsonResponse
     {

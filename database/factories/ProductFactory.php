@@ -31,7 +31,7 @@ class ProductFactory extends Factory
             'thumbnail' => $this->faker->imageUrl(),
             'images' => [$this->faker->imageUrl(), $this->faker->imageUrl()],
             'options' => [
-                ['name' => 'Color', 'values' => ['Black', 'White']]
+                ['name' => 'Color', 'values' => ['Black', 'White']],
             ],
         ];
     }

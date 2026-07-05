@@ -4,7 +4,9 @@ namespace Tests\Feature\Web;
 
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
+use App\Models\User;
 use App\Models\Variant;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -25,7 +27,7 @@ class StorefrontTest extends TestCase
         ]);
         Variant::factory()->create([
             'product_id' => $product->id,
-            'price' => 29.99
+            'price' => 29.99,
         ]);
 
         // Act
@@ -89,7 +91,7 @@ class StorefrontTest extends TestCase
         // Arrange
         $prod1 = Product::factory()->create(['name' => 'Cool Speaker', 'status' => 'active']);
         $prod2 = Product::factory()->create(['name' => 'Gamer Mouse', 'status' => 'active']);
-        
+
         Variant::factory()->create(['product_id' => $prod1->id]);
         Variant::factory()->create(['product_id' => $prod2->id]);
 
@@ -111,7 +113,7 @@ class StorefrontTest extends TestCase
         $product = Product::factory()->create([
             'name' => 'Fujifilm Camera',
             'slug' => 'fujifilm-camera',
-            'status' => 'active'
+            'status' => 'active',
         ]);
         Variant::factory()->create(['product_id' => $product->id]);
 
@@ -144,7 +146,7 @@ class StorefrontTest extends TestCase
 
     public function test_authenticated_user_can_access_checkout_page(): void
     {
-        $user = \App\Models\User::factory()->create();
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get('/checkout');
         $response->assertStatus(200)
@@ -155,8 +157,8 @@ class StorefrontTest extends TestCase
 
     public function test_checkout_success_page_renders_successfully(): void
     {
-        $user = \App\Models\User::factory()->create();
-        $order = \App\Models\Order::create([
+        $user = User::factory()->create();
+        $order = Order::create([
             'user_id' => $user->id,
             'order_number' => 'ORD-TEST1234',
             'subtotal' => 50,

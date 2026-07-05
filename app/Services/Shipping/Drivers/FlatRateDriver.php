@@ -9,11 +9,6 @@ class FlatRateDriver implements ShippingGatewayInterface
 {
     /**
      * Compute shipping rates for a destination address and array of cart items.
-     *
-     * @param array $address
-     * @param array $items
-     * @param float $basePrice
-     * @return array
      */
     public function getRates(array $address, array $items, float $basePrice): array
     {
@@ -51,16 +46,14 @@ class FlatRateDriver implements ShippingGatewayInterface
 
     /**
      * Create a shipment label and register package on the carrier network.
-     *
-     * @param array $orderData
-     * @return array
      */
     public function createShipment(array $orderData): array
     {
-        $trackingNumber = 'TRK-' . strtoupper(Str::random(12));
+        $trackingNumber = 'TRK-'.strtoupper(Str::random(12));
+
         return [
             'tracking_number' => $trackingNumber,
-            'label_url' => 'https://eshop.test/shipping/labels/' . $trackingNumber . '.pdf',
+            'label_url' => 'https://eshop.test/shipping/labels/'.$trackingNumber.'.pdf',
             'status' => 'registered',
         ];
     }

@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use GraphQL\GraphQL;
-use GraphQL\Type\Schema;
-use GraphQL\Type\Definition\Type;
-use GraphQL\Type\Definition\ObjectType;
 use App\Models\User;
+use GraphQL\GraphQL;
+use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\Type;
+use GraphQL\Type\Schema;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Log;
 
 class GraphQLController extends Controller
@@ -16,8 +17,7 @@ class GraphQLController extends Controller
     /**
      * Handle incoming GraphQL POST requests.
      *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function handle(Request $request)
     {
@@ -26,9 +26,9 @@ class GraphQLController extends Controller
             $query = $input['query'] ?? null;
             $variables = $input['variables'] ?? null;
 
-            if (!$query) {
+            if (! $query) {
                 return response()->json([
-                    'errors' => [['message' => 'GraphQL query is required.']]
+                    'errors' => [['message' => 'GraphQL query is required.']],
                 ], 400);
             }
 
@@ -41,7 +41,7 @@ class GraphQLController extends Controller
                     'slug' => Type::nonNull(Type::string()),
                     'summary' => Type::string(),
                     'thumbnail' => Type::string(),
-                ]
+                ],
             ]);
 
             $productVariantType = new ObjectType([
@@ -55,9 +55,9 @@ class GraphQLController extends Controller
                         'type' => Type::nonNull($productType),
                         'resolve' => function ($variant) {
                             return $variant->product;
-                        }
-                    ]
-                ]
+                        },
+                    ],
+                ],
             ]);
 
             $cartItemType = new ObjectType([
@@ -69,9 +69,9 @@ class GraphQLController extends Controller
                         'type' => Type::nonNull($productVariantType),
                         'resolve' => function ($item) {
                             return $item->variant;
-                        }
-                    ]
-                ]
+                        },
+                    ],
+                ],
             ]);
 
             $cartType = new ObjectType([
@@ -84,15 +84,15 @@ class GraphQLController extends Controller
                             return (float) $cart->items->sum(function ($item) {
                                 return ($item->variant->price ?? 0) * $item->quantity;
                             });
-                        }
+                        },
                     ],
                     'items' => [
                         'type' => Type::nonNull(Type::listOf(Type::nonNull($cartItemType))),
                         'resolve' => function ($cart) {
                             return $cart->items;
-                        }
-                    ]
-                ]
+                        },
+                    ],
+                ],
             ]);
 
             $orderItemType = new ObjectType([
@@ -106,9 +106,9 @@ class GraphQLController extends Controller
                         'type' => $productVariantType,
                         'resolve' => function ($item) {
                             return $item->variant;
-                        }
-                    ]
-                ]
+                        },
+                    ],
+                ],
             ]);
 
             $orderType = new ObjectType([
@@ -119,34 +119,34 @@ class GraphQLController extends Controller
                         'type' => Type::nonNull(Type::string()),
                         'resolve' => function ($order) {
                             return $order->order_number;
-                        }
+                        },
                     ],
                     'status' => Type::nonNull(Type::string()),
                     'paymentStatus' => [
                         'type' => Type::nonNull(Type::string()),
                         'resolve' => function ($order) {
                             return $order->payment_status;
-                        }
+                        },
                     ],
                     'totalAmount' => [
                         'type' => Type::nonNull(Type::float()),
                         'resolve' => function ($order) {
                             return (float) $order->grand_total;
-                        }
+                        },
                     ],
                     'createdAt' => [
                         'type' => Type::nonNull(Type::string()),
                         'resolve' => function ($order) {
                             return $order->created_at->toIso8601String();
-                        }
+                        },
                     ],
                     'items' => [
                         'type' => Type::nonNull(Type::listOf(Type::nonNull($orderItemType))),
                         'resolve' => function ($order) {
                             return $order->items;
-                        }
-                    ]
-                ]
+                        },
+                    ],
+                ],
             ]);
 
             $userType = new ObjectType([
@@ -159,15 +159,15 @@ class GraphQLController extends Controller
                         'type' => $cartType,
                         'resolve' => function ($user) {
                             return $user->cart;
-                        }
+                        },
                     ],
                     'orders' => [
                         'type' => Type::nonNull(Type::listOf(Type::nonNull($orderType))),
                         'resolve' => function ($user) {
                             return $user->orders;
-                        }
-                    ]
-                ]
+                        },
+                    ],
+                ],
             ]);
 
             // Query root
@@ -184,8 +184,9 @@ class GraphQLController extends Controller
                             if ($currentUser) {
                                 return User::where('id', $currentUser->id)->with(['cart.items.variant.product'])->get();
                             }
+
                             return [];
-                        }
+                        },
                     ],
                     'usersOrders' => [
                         'type' => Type::nonNull(Type::listOf(Type::nonNull($userType))),
@@ -197,14 +198,15 @@ class GraphQLController extends Controller
                             if ($currentUser) {
                                 return User::where('id', $currentUser->id)->with(['orders.items.variant.product'])->get();
                             }
+
                             return [];
-                        }
-                    ]
-                ]
+                        },
+                    ],
+                ],
             ]);
 
             $schema = new Schema([
-                'query' => $queryType
+                'query' => $queryType,
             ]);
 
             $result = GraphQL::executeQuery($schema, $query, null, null, $variables);
@@ -213,9 +215,10 @@ class GraphQLController extends Controller
             return response()->json($output);
 
         } catch (\Exception $e) {
-            Log::error('GraphQL Error: ' . $e->getMessage(), ['exception' => $e]);
+            Log::error('GraphQL Error: '.$e->getMessage(), ['exception' => $e]);
+
             return response()->json([
-                'errors' => [['message' => $e->getMessage()]]
+                'errors' => [['message' => $e->getMessage()]],
             ], 500);
         }
     }

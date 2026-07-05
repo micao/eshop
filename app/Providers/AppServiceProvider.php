@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\Payment\PaymentManager;
+use App\Services\Shipping\ShippingManager;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -15,12 +17,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(\App\Services\Shipping\ShippingManager::class, function ($app) {
-            return new \App\Services\Shipping\ShippingManager($app);
+        $this->app->singleton(ShippingManager::class, function ($app) {
+            return new ShippingManager($app);
         });
 
-        $this->app->singleton(\App\Services\Payment\PaymentManager::class, function ($app) {
-            return new \App\Services\Payment\PaymentManager($app);
+        $this->app->singleton(PaymentManager::class, function ($app) {
+            return new PaymentManager($app);
         });
     }
 

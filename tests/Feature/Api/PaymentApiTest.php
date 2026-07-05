@@ -9,9 +9,9 @@ use App\Models\User;
 use App\Models\UserAddress;
 use App\Models\Variant;
 use App\Services\CartService;
-use App\Services\Payment\PaymentManager;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class PaymentApiTest extends TestCase
@@ -27,11 +27,11 @@ class PaymentApiTest extends TestCase
         Config::set('services.stripe.secret_key', 'sk_test_mock_key');
         Config::set('services.stripe.webhook_secret', ''); // empty webhook secret bypasses signature checks in mock testing
 
-        \Illuminate\Support\Facades\Http::fake([
-            'api.stripe.com/v1/payment_intents' => \Illuminate\Support\Facades\Http::response([
+        Http::fake([
+            'api.stripe.com/v1/payment_intents' => Http::response([
                 'id' => 'pi_mock_1234567890',
                 'client_secret' => 'pi_mock_1234567890_secret_123456',
-            ], 200)
+            ], 200),
         ]);
     }
 
@@ -102,8 +102,8 @@ class PaymentApiTest extends TestCase
             'data' => [
                 'object' => [
                     'id' => $intentId,
-                ]
-            ]
+                ],
+            ],
         ]);
 
         $webhookResponse->assertOk();

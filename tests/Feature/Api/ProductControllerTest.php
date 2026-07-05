@@ -62,12 +62,12 @@ class ProductControllerTest extends TestCase
                                 'weight_unit',
                                 'dimensions' => ['width', 'height', 'depth', 'unit'],
                                 'options',
-                            ]
-                        ]
-                    ]
+                            ],
+                        ],
+                    ],
                 ],
                 'links' => ['first', 'last', 'prev', 'next'],
-                'meta' => ['current_page', 'from', 'last_page', 'path', 'per_page', 'to', 'total']
+                'meta' => ['current_page', 'from', 'last_page', 'path', 'per_page', 'to', 'total'],
             ])
             ->assertJsonCount(3, 'data');
     }
@@ -98,7 +98,7 @@ class ProductControllerTest extends TestCase
         $product = Product::factory()->create(['status' => 'active']);
         Variant::factory()->create([
             'product_id' => $product->id,
-            'cost_price' => 150.00
+            'cost_price' => 150.00,
         ]);
 
         $response = $this->getJson('/api/products');
