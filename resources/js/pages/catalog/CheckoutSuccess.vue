@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Head, Link } from '@inertiajs/vue3';
-import StorefrontLayout from '@/layouts/StorefrontLayout.vue';
-import { Button } from '@/components/ui/button';
+import { Link } from '@inertiajs/vue3';
 import { CheckCircle, Truck, Package, Printer, ArrowRight, MapPin, User, Phone } from '@lucide/vue';
+import { Button } from '@/components/ui/button';
+import StorefrontLayout from '@/layouts/StorefrontLayout.vue';
 
 type Category = {
     id: number;

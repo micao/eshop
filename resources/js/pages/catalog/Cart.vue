@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { Head, Link, usePage, router } from '@inertiajs/vue3';
-import StorefrontLayout from '@/layouts/StorefrontLayout.vue';
-import { Button } from '@/components/ui/button';
+import { Link, usePage, router } from '@inertiajs/vue3';
 import { ShoppingBag, Trash2, ArrowLeft, Plus, Minus, CreditCard, ShieldCheck } from '@lucide/vue';
 import axios from 'axios';
+import { ref, onMounted } from 'vue';
 import { toast } from 'vue-sonner';
+import { Button } from '@/components/ui/button';
+import StorefrontLayout from '@/layouts/StorefrontLayout.vue';
 
 type CartProduct = {
     name: string;
@@ -54,6 +54,7 @@ const cartData = ref<CartData>({
 // Load cart depending on auth status
 const loadCartDetails = async () => {
     isLoading.value = true;
+
     try {
         if (page.props.auth.user) {
             // Member: Fetch from DB
@@ -65,7 +66,7 @@ const loadCartDetails = async () => {
             const response = await axios.post('/api/cart/details', { items: localCart });
             cartData.value = response.data;
         }
-    } catch (e) {
+    } catch {
         toast.error('Failed to load cart details.');
     } finally {
         isLoading.value = false;
@@ -79,12 +80,14 @@ onMounted(() => {
 const updateQty = async (item: CartItem, newQty: number) => {
     if (newQty <= 0) {
         removeCartItem(item);
+
         return;
     }
     
     // Check stock threshold
     if (newQty > item.available_stock) {
         toast.error(`Only ${item.available_stock} units available in inventory.`);
+
         return;
     }
 
@@ -96,12 +99,14 @@ const updateQty = async (item: CartItem, newQty: number) => {
             // Guest: Sync LocalStorage
             const localCart = JSON.parse(localStorage.getItem('eshop_cart') || '[]');
             const found = localCart.find((i: any) => i.variant_id === item.variant_id);
+
             if (found) {
                 found.quantity = newQty;
                 localStorage.setItem('eshop_cart', JSON.stringify(localCart));
                 window.dispatchEvent(new CustomEvent('cart-updated'));
             }
         }
+
         await loadCartDetails();
         toast.success('Cart updated.');
     } catch (e: any) {
@@ -121,9 +126,10 @@ const removeCartItem = async (item: CartItem) => {
             localStorage.setItem('eshop_cart', JSON.stringify(localCart));
             window.dispatchEvent(new CustomEvent('cart-updated'));
         }
+
         await loadCartDetails();
         toast.success('Item removed from cart.');
-    } catch (e) {
+    } catch {
         toast.error('Failed to remove item.');
     }
 };
@@ -138,9 +144,10 @@ const clearCart = async () => {
             localStorage.removeItem('eshop_cart');
             window.dispatchEvent(new CustomEvent('cart-updated'));
         }
+
         await loadCartDetails();
         toast.success('Cart cleared.');
-    } catch (e) {
+    } catch {
         toast.error('Failed to clear cart.');
     }
 };

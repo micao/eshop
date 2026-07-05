@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
-import { dashboard } from '@/routes';
-import { Package, Boxes, AlertTriangle, AlertCircle, ArrowRight, ShieldCheck, ChevronRight } from '@lucide/vue';
+import { Package, Boxes, AlertTriangle, AlertCircle, ArrowRight, ShieldCheck } from '@lucide/vue';
 import { Badge } from '@/components/ui/badge';
+import { dashboard } from '@/routes';
 
 type Stats = {
     totalProducts: number;
@@ -51,7 +51,10 @@ defineOptions({
 });
 
 const formatOptions = (options: Record<string, string>) => {
-    if (!options || Object.keys(options).length === 0) return '';
+    if (!options || Object.keys(options).length === 0) {
+return '';
+}
+
     return Object.entries(options)
         .map(([key, value]) => `${key}: ${value}`)
         .join(' / ');

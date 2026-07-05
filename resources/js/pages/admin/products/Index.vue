@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
 import { Head, Link, useForm, router } from '@inertiajs/vue3';
-import AppLayout from '@/layouts/AppLayout.vue';
-import { Button } from '@/components/ui/button';
+import { Eye, Edit, Trash2, Search, Package, AlertTriangle, Layers } from '@lucide/vue';
+import { ref, computed } from 'vue';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/sheet';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
-import { Eye, Edit, Trash2, Search, Package, Info, AlertTriangle, Layers } from '@lucide/vue';
+
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/sheet';
+import AppLayout from '@/layouts/AppLayout.vue';
 
 interface Category {
     id: number;
@@ -114,8 +114,12 @@ const isDeleting = ref(false);
 
 // Local search filter
 const filteredProducts = computed(() => {
-    if (!searchQuery.value) return props.products.data;
+    if (!searchQuery.value) {
+return props.products.data;
+}
+
     const query = searchQuery.value.toLowerCase();
+
     return props.products.data.filter(product => 
         product.name.toLowerCase().includes(query) || 
         product.slug.toLowerCase().includes(query) ||
@@ -148,7 +152,10 @@ const openEdit = (product: Product) => {
 };
 
 const submitEdit = () => {
-    if (!selectedProduct.value) return;
+    if (!selectedProduct.value) {
+return;
+}
+
     form.put(`/admin/products/${selectedProduct.value.id}`, {
         onSuccess: () => {
             isEditOpen.value = false;
@@ -162,7 +169,10 @@ const openDelete = (product: Product) => {
 };
 
 const confirmDelete = () => {
-    if (!selectedProduct.value) return;
+    if (!selectedProduct.value) {
+return;
+}
+
     isDeleting.value = true;
     router.delete(`/admin/products/${selectedProduct.value.id}`, {
         onSuccess: () => {
@@ -414,8 +424,9 @@ const getStatusBadge = (status: string) => {
                             'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-black pointer-events-none font-medium': link.active,
                             'opacity-50 pointer-events-none': !link.url && !link.active 
                         }"
-                        v-html="link.label"
-                    />
+                    >
+                        <span v-html="link.label"></span>
+                    </Link>
                 </div>
             </div>
         </div>

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import AppLayout from '@/layouts/AppLayout.vue';
-import { Button } from '@/components/ui/button';
+import { Eye, Search, ClipboardList, Package, Truck, User as UserIcon } from '@lucide/vue';
+import { ref } from 'vue';
 import { Badge } from '@/components/ui/badge';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Eye, Search, ClipboardList, Package, Clock, CreditCard, Truck, User as UserIcon } from '@lucide/vue';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/sheet';
+import AppLayout from '@/layouts/AppLayout.vue';
 
 interface User {
     id: number;
@@ -305,8 +305,9 @@ const formatDate = (dateStr: string) => {
                             'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-black pointer-events-none font-medium': link.active,
                             'opacity-50 pointer-events-none': !link.url && !link.active 
                         }"
-                        v-html="link.label"
-                    />
+                    >
+                        <span v-html="link.label"></span>
+                    </Link>
                 </div>
             </div>
         </div>

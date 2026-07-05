@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
 import { Head } from '@inertiajs/vue3';
+import { MapPin, Phone, User, Trash2, Plus, Star } from '@lucide/vue';
+import axios from 'axios';
+import { ref, onMounted } from 'vue';
+import { toast } from 'vue-sonner';
 import Heading from '@/components/Heading.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
-import { MapPin, Phone, User, Trash2, Plus, Star } from '@lucide/vue';
-import axios from 'axios';
-import { toast } from 'vue-sonner';
 
 defineOptions({
     layout: {
@@ -57,10 +57,11 @@ onMounted(() => {
 
 const fetchAddresses = async () => {
     isLoading.value = true;
+
     try {
         const response = await axios.get('/api/addresses');
         addresses.value = response.data;
-    } catch (e) {
+    } catch {
         toast.error('Failed to load saved addresses.');
     } finally {
         isLoading.value = false;
@@ -70,6 +71,7 @@ const fetchAddresses = async () => {
 const handleAddAddress = async () => {
     if (!newAddress.value.recipient_name || !newAddress.value.recipient_phone || !newAddress.value.address_line_1 || !newAddress.value.city || !newAddress.value.postal_code) {
         toast.error('Please fill in all required fields.');
+
         return;
     }
 
@@ -92,7 +94,7 @@ const handleAddAddress = async () => {
         };
 
         fetchAddresses();
-    } catch (e) {
+    } catch {
         toast.error('Failed to add address.');
     }
 };
@@ -106,7 +108,7 @@ const handleDeleteAddress = async (id: number) => {
         await axios.delete(`/api/addresses/${id}`);
         toast.success('Address deleted successfully.');
         fetchAddresses();
-    } catch (e) {
+    } catch {
         toast.error('Failed to delete address.');
     }
 };
@@ -119,7 +121,7 @@ const handleSetDefault = async (addr: Address) => {
         });
         toast.success('Default address updated.');
         fetchAddresses();
-    } catch (e) {
+    } catch {
         toast.error('Failed to update default address.');
     }
 };

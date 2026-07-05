@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { Link } from '@inertiajs/vue3';
+import { ShoppingBag, ChevronRight, CheckCircle2, AlertCircle } from '@lucide/vue';
 import { ref, computed } from 'vue';
-import { Head, Link } from '@inertiajs/vue3';
-import StorefrontLayout from '@/layouts/StorefrontLayout.vue';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { ShoppingBag, ChevronRight, Layers, Heart, CheckCircle2, AlertCircle } from '@lucide/vue';
 import { toast } from 'vue-sonner';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import StorefrontLayout from '@/layouts/StorefrontLayout.vue';
 
 type Variant = {
     id: number;
@@ -51,7 +51,9 @@ if (props.product.options && props.product.options.length > 0) {
 
 // Find matched variant based on current specification choices
 const selectedVariant = computed<Variant | null>(() => {
-    if (!props.product.variants || props.product.variants.length === 0) return null;
+    if (!props.product.variants || props.product.variants.length === 0) {
+return null;
+}
     
     // If product has no options schema, return the first variant (default variant)
     if (!props.product.options || props.product.options.length === 0) {
@@ -72,28 +74,47 @@ const activeImage = ref(props.product.thumbnail);
 const quantity = ref(1);
 
 const incrementQty = () => {
-    if (!selectedVariant.value) return;
+    if (!selectedVariant.value) {
+return;
+}
+
     const max = selectedVariant.value.track_inventory && !selectedVariant.value.continue_selling_out_of_stock
         ? selectedVariant.value.inventory_quantity
         : 99;
-    if (quantity.value < max) quantity.value++;
+
+    if (quantity.value < max) {
+quantity.value++;
+}
 };
 
 const decrementQty = () => {
-    if (quantity.value > 1) quantity.value--;
+    if (quantity.value > 1) {
+quantity.value--;
+}
 };
 
 // Check if variant has stock
 const isOutOfStock = computed(() => {
-    if (!selectedVariant.value) return true;
-    if (!selectedVariant.value.track_inventory) return false;
-    if (selectedVariant.value.continue_selling_out_of_stock) return false;
+    if (!selectedVariant.value) {
+return true;
+}
+
+    if (!selectedVariant.value.track_inventory) {
+return false;
+}
+
+    if (selectedVariant.value.continue_selling_out_of_stock) {
+return false;
+}
+
     return selectedVariant.value.inventory_quantity <= 0;
 });
 
 // Guest cart addition action
 const addToCart = () => {
-    if (!selectedVariant.value) return;
+    if (!selectedVariant.value) {
+return;
+}
     
     try {
         const cart = JSON.parse(localStorage.getItem('eshop_cart') || '[]');
@@ -114,7 +135,7 @@ const addToCart = () => {
         window.dispatchEvent(new CustomEvent('cart-updated'));
         
         toast.success(`Added ${quantity.value}x ${selectedVariant.value.name} to cart!`);
-    } catch (e) {
+    } catch {
         toast.error('Failed to add item to cart.');
     }
 };

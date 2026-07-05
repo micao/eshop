@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
 import { Head, usePage } from '@inertiajs/vue3';
-import Heading from '@/components/Heading.vue';
-import axios from 'axios';
 import { Package, Clock } from '@lucide/vue';
+import axios from 'axios';
+import { ref, onMounted } from 'vue';
+import Heading from '@/components/Heading.vue';
 
 interface OrderItem {
     id: string;
@@ -63,12 +63,14 @@ const fetchOrders = async () => {
             }
         `;
         const response = await axios.post('/api/graphql', { query });
+
         if (response.data.errors) {
             error.value = response.data.errors[0].message;
         } else {
             const userNodes = response.data.data.usersOrders;
             const currentUserId = page.props.auth.user.id;
             const currentUserNode = userNodes.find((u: any) => parseInt(u.id) === parseInt(currentUserId));
+
             if (currentUserNode) {
                 orders.value = currentUserNode.orders || [];
             }

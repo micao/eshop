@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
 import { Head, Link, router, usePage } from '@inertiajs/vue3';
-import { login, register, dashboard } from '@/routes';
-import { ShoppingBag, Search, User, LogOut, Package, Menu, X, ChevronDown } from '@lucide/vue';
+import { ShoppingBag, Search, User, Menu, X, ChevronDown } from '@lucide/vue';
 import axios from 'axios';
+import { ref, onMounted } from 'vue';
+import { login, register, dashboard } from '@/routes';
 
 type Category = {
     id: number;
@@ -26,7 +26,7 @@ const updateCartCount = () => {
     try {
         const cart = JSON.parse(localStorage.getItem('eshop_cart') || '[]');
         cartCount.value = cart.reduce((total: number, item: any) => total + (item.quantity || 0), 0);
-    } catch (e) {
+    } catch {
         cartCount.value = 0;
     }
 };
@@ -38,9 +38,11 @@ onMounted(async () => {
 
     // Auto-merge guest cart if user is logged in and guest items exist
     const pageProps = usePage().props;
+
     if (pageProps.auth.user) {
         try {
             const localCart = JSON.parse(localStorage.getItem('eshop_cart') || '[]');
+
             if (localCart.length > 0) {
                 await axios.post('/api/cart/merge', { items: localCart });
                 localStorage.removeItem('eshop_cart');
@@ -65,8 +67,10 @@ const isLoadingPreview = ref(false);
 const handleMouseEnterCart = async () => {
     isHoveringCart.value = true;
     isLoadingPreview.value = true;
+
     try {
         const pageProps = usePage().props;
+
         if (pageProps.auth.user) {
             const response = await axios.get('/api/cart');
             cartPreview.value = response.data;
@@ -75,7 +79,7 @@ const handleMouseEnterCart = async () => {
             const response = await axios.post('/api/cart/details', { items: localCart });
             cartPreview.value = response.data;
         }
-    } catch (e) {
+    } catch {
         cartPreview.value = null;
     } finally {
         isLoadingPreview.value = false;

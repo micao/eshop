@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
+import { usePage } from '@inertiajs/vue3';
 import { BookOpen, FolderGit2, LayoutGrid, Package, ClipboardList } from '@lucide/vue';
 import { computed } from 'vue';
-import { usePage } from '@inertiajs/vue3';
 import AppLogo from '@/components/AppLogo.vue';
 import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
@@ -26,6 +26,7 @@ const mainNavItems = computed<NavItem[]>(() => {
     if (!isAdmin.value) {
         return [];
     }
+
     return [
         {
             title: 'Dashboard',

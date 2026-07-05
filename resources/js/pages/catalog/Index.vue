@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
 import { Link, router, usePage } from '@inertiajs/vue3';
-import StorefrontLayout from '@/layouts/StorefrontLayout.vue';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
 import { ShoppingBag, Eye, SlidersHorizontal, Layers, RotateCcw } from '@lucide/vue';
 import axios from 'axios';
+import { ref, watch } from 'vue';
 import { toast } from 'vue-sonner';
+
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import StorefrontLayout from '@/layouts/StorefrontLayout.vue';
 
 type Category = {
     id: number;
@@ -101,8 +101,10 @@ watch([inStock, sort, brand], () => {
 const quickAddToCart = async (product: Product) => {
     if (!product.variants || product.variants.length === 0) {
         toast.error('No variants available for this product.');
+
         return;
     }
+
     const defaultVariant = product.variants[0];
     const isMember = usePage().props.auth.user;
     
@@ -115,14 +117,17 @@ const quickAddToCart = async (product: Product) => {
         } else {
             const localCart = JSON.parse(localStorage.getItem('eshop_cart') || '[]');
             const existing = localCart.find((item: any) => item.variant_id === defaultVariant.id);
+
             if (existing) {
                 existing.quantity += 1;
             } else {
                 localCart.push({ variant_id: defaultVariant.id, quantity: 1 });
             }
+
             localStorage.setItem('eshop_cart', JSON.stringify(localCart));
             window.dispatchEvent(new CustomEvent('cart-updated'));
         }
+
         toast.success(`Quick added 1x ${product.name} to cart!`);
     } catch (e: any) {
         toast.error(e.response?.data?.message || 'Failed to quick add to cart.');
@@ -130,10 +135,14 @@ const quickAddToCart = async (product: Product) => {
 };
 
 const getPriceRange = (product: Product) => {
-    if (product.variants.length === 0) return 'N/A';
+    if (product.variants.length === 0) {
+return 'N/A';
+}
+
     const prices = product.variants.map(v => parseFloat(v.price as any));
     const min = Math.min(...prices);
     const max = Math.max(...prices);
+
     return min === max ? `$${min.toFixed(2)}` : `$${min.toFixed(2)} - $${max.toFixed(2)}`;
 };
 </script>
@@ -368,8 +377,9 @@ const getPriceRange = (product: Product) => {
                                     'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-black pointer-events-none font-bold': link.active,
                                     'opacity-50 pointer-events-none': !link.url && !link.active
                                 }"
-                                v-html="link.label"
-                            />
+                            >
+                                <span v-html="link.label"></span>
+                            </Link>
                         </div>
                     </div>
                 </div>

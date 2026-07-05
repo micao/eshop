@@ -1,14 +1,14 @@
 <script setup lang="ts">
+import { router } from '@inertiajs/vue3';
+import { MapPin, Phone, User, Check, CreditCard, QrCode, ArrowLeft, Plus } from '@lucide/vue';
+import axios from 'axios';
 import { ref, onMounted, computed } from 'vue';
-import { Head, router } from '@inertiajs/vue3';
-import StorefrontLayout from '@/layouts/StorefrontLayout.vue';
+import { toast } from 'vue-sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
-import { MapPin, Phone, User, Check, CreditCard, QrCode, ArrowLeft, Plus } from '@lucide/vue';
-import axios from 'axios';
-import { toast } from 'vue-sonner';
+import StorefrontLayout from '@/layouts/StorefrontLayout.vue';
 
 type Category = {
     id: number;
@@ -91,14 +91,16 @@ onMounted(() => {
 
 const fetchCart = async () => {
     isLoadingCart.value = true;
+
     try {
         const response = await axios.get('/api/cart');
         cartDetails.value = response.data;
+
         if (!response.data.items || response.data.items.length === 0) {
             toast.error('Your cart is empty. Redirecting back to cart.');
             router.visit('/cart');
         }
-    } catch (e) {
+    } catch {
         toast.error('Failed to load shopping cart.');
     } finally {
         isLoadingCart.value = false;
@@ -107,18 +109,20 @@ const fetchCart = async () => {
 
 const fetchAddresses = async () => {
     isLoadingAddresses.value = true;
+
     try {
         const response = await axios.get('/api/addresses');
         addresses.value = response.data;
         
         // Auto select default address
         const def = addresses.value.find(a => a.is_default);
+
         if (def) {
             selectAddress(def.id);
         } else if (addresses.value.length > 0) {
             selectAddress(addresses.value[0].id);
         }
-    } catch (e) {
+    } catch {
         toast.error('Failed to load delivery addresses.');
     } finally {
         isLoadingAddresses.value = false;
@@ -132,13 +136,15 @@ const selectAddress = async (id: number) => {
     
     // Fetch shipping rates
     isLoadingRates.value = true;
+
     try {
         const response = await axios.get(`/api/checkout/shipping-rates?user_address_id=${id}`);
         shippingRates.value = response.data;
+
         if (shippingRates.value.length > 0) {
             selectedRate.value = shippingRates.value[0];
         }
-    } catch (e) {
+    } catch {
         toast.error('Failed to fetch shipping rates.');
     } finally {
         isLoadingRates.value = false;
@@ -148,6 +154,7 @@ const selectAddress = async (id: number) => {
 const handleAddAddress = async () => {
     if (!newAddress.value.recipient_name || !newAddress.value.recipient_phone || !newAddress.value.address_line_1 || !newAddress.value.city || !newAddress.value.postal_code) {
         toast.error('Please fill in all required address fields.');
+
         return;
     }
     
@@ -171,10 +178,11 @@ const handleAddAddress = async () => {
         // Refresh and select the newly created address
         await fetchAddresses();
         const savedAddr = response.data.address;
+
         if (savedAddr) {
             selectAddress(savedAddr.id);
         }
-    } catch (e) {
+    } catch {
         toast.error('Failed to create address.');
     }
 };
@@ -187,21 +195,26 @@ const grandTotal = computed(() => subtotal.value + shippingCost.value);
 const handleCheckoutSubmit = async () => {
     if (!selectedAddressId.value) {
         toast.error('Please select a shipping address.');
+
         return;
     }
+
     if (!selectedRate.value) {
         toast.error('Please select a delivery shipping option.');
+
         return;
     }
     
     if (paymentMethod.value === 'card') {
         if (!cardName.value || !cardNumber.value || !cardExpiry.value || !cardCvc.value) {
             toast.error('Please fill in your credit card details.');
+
             return;
         }
     }
     
     isSubmitting.value = true;
+
     try {
         const response = await axios.post('/api/checkout', {
             user_address_id: selectedAddressId.value,

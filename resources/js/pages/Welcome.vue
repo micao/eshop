@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
-import StorefrontLayout from '@/layouts/StorefrontLayout.vue';
 import { ArrowRight, ShoppingBag, Eye, Layers } from '@lucide/vue';
 import axios from 'axios';
 import { toast } from 'vue-sonner';
+import StorefrontLayout from '@/layouts/StorefrontLayout.vue';
 
 type Category = {
     id: number;
@@ -34,18 +34,24 @@ defineProps<{
 }>();
 
 const getPriceRange = (product: Product) => {
-    if (product.variants.length === 0) return 'N/A';
+    if (product.variants.length === 0) {
+return 'N/A';
+}
+
     const prices = product.variants.map(v => parseFloat(v.price as any));
     const min = Math.min(...prices);
     const max = Math.max(...prices);
+
     return min === max ? `$${min.toFixed(2)}` : `$${min.toFixed(2)} - $${max.toFixed(2)}`;
 };
 
 const quickAddToCart = async (product: Product) => {
     if (!product.variants || product.variants.length === 0) {
         toast.error('No variants available for this product.');
+
         return;
     }
+
     const defaultVariant = product.variants[0];
     const isMember = usePage().props.auth.user;
     
@@ -58,14 +64,17 @@ const quickAddToCart = async (product: Product) => {
         } else {
             const localCart = JSON.parse(localStorage.getItem('eshop_cart') || '[]');
             const existing = localCart.find((item: any) => item.variant_id === defaultVariant.id);
+
             if (existing) {
                 existing.quantity += 1;
             } else {
                 localCart.push({ variant_id: defaultVariant.id, quantity: 1 });
             }
+
             localStorage.setItem('eshop_cart', JSON.stringify(localCart));
             window.dispatchEvent(new CustomEvent('cart-updated'));
         }
+
         toast.success(`Quick added 1x ${product.name} to cart!`);
     } catch (e: any) {
         toast.error(e.response?.data?.message || 'Failed to quick add to cart.');
