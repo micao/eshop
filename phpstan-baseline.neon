@@ -1,0 +1,685 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$is_default\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/AddressController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\ShippingMethod\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\ShippingMethod\>\:\:\$base_price\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/CheckoutController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\ShippingMethod\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\ShippingMethod\>\:\:\$gateway_driver\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/CheckoutController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\ShippingMethod\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\ShippingMethod\>\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/CheckoutController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Variant\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Variant\>\:\:\$continue_selling_out_of_stock\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/CheckoutController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Variant\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Variant\>\:\:\$inventory_quantity\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/CheckoutController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Variant\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Variant\>\:\:\$track_inventory\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/Api/CheckoutController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Illuminate\\Database\\Eloquent\\Model\>\|Illuminate\\Database\\Eloquent\\Model\:\:\$address_line_1\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/CheckoutController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Illuminate\\Database\\Eloquent\\Model\>\|Illuminate\\Database\\Eloquent\\Model\:\:\$address_line_2\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/CheckoutController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Illuminate\\Database\\Eloquent\\Model\>\|Illuminate\\Database\\Eloquent\\Model\:\:\$city\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/CheckoutController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Illuminate\\Database\\Eloquent\\Model\>\|Illuminate\\Database\\Eloquent\\Model\:\:\$country_code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/CheckoutController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Illuminate\\Database\\Eloquent\\Model\>\|Illuminate\\Database\\Eloquent\\Model\:\:\$postal_code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/CheckoutController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Illuminate\\Database\\Eloquent\\Model\>\|Illuminate\\Database\\Eloquent\\Model\:\:\$recipient_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/CheckoutController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Illuminate\\Database\\Eloquent\\Model\>\|Illuminate\\Database\\Eloquent\\Model\:\:\$recipient_phone\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/CheckoutController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Illuminate\\Database\\Eloquent\\Model\>\|Illuminate\\Database\\Eloquent\\Model\:\:\$state_province\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/CheckoutController.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\Variant\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Variant\>\:\:decrement\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Controllers/Api/CheckoutController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Variant\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Variant\>\:\:\$track_inventory\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/StripeWebhookController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$quantity\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/StripeWebhookController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$variant_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/StripeWebhookController.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\Variant\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Variant\>\:\:decrement\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Controllers/Api/StripeWebhookController.php
+
+		-
+			message: '#^Parameter \#1 \$user of method App\\Services\\CartService\:\:clearUserCart\(\) expects App\\Models\\User, Illuminate\\Database\\Eloquent\\Model\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/Api/StripeWebhookController.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\ConnectionInterface\:\:getDriverName\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Controllers/StorefrontController.php
+
+		-
+			message: '#^Parameter \#1 \$sql of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Product\>\:\:orderByRaw\(\) expects literal\-string, non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: app/Http/Controllers/StorefrontController.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ProductResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ProductResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ProductResource\:\:\$description\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ProductResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ProductResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ProductResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ProductResource\:\:\$images\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ProductResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ProductResource\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ProductResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ProductResource\:\:\$options\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ProductResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ProductResource\:\:\$slug\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ProductResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ProductResource\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ProductResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ProductResource\:\:\$summary\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ProductResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ProductResource\:\:\$thumbnail\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ProductResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ProductResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ProductResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\VariantResource\:\:\$barcode\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/VariantResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\VariantResource\:\:\$compare_at_price\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/VariantResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\VariantResource\:\:\$continue_selling_out_of_stock\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/VariantResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\VariantResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/VariantResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\VariantResource\:\:\$depth\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/VariantResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\VariantResource\:\:\$dimension_unit\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/VariantResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\VariantResource\:\:\$height\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/VariantResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\VariantResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/VariantResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\VariantResource\:\:\$inventory_quantity\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/VariantResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\VariantResource\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/VariantResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\VariantResource\:\:\$options\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/VariantResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\VariantResource\:\:\$price\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/VariantResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\VariantResource\:\:\$sku\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/VariantResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\VariantResource\:\:\$track_inventory\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/VariantResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\VariantResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/VariantResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\VariantResource\:\:\$weight\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/VariantResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\VariantResource\:\:\$weight_unit\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/VariantResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\VariantResource\:\:\$width\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/VariantResource.php
+
+		-
+			message: '#^Class App\\Models\\Brand uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Brand.php
+
+		-
+			message: '#^Method App\\Models\\Cart\:\:items\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Cart.php
+
+		-
+			message: '#^Method App\\Models\\Cart\:\:user\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Cart.php
+
+		-
+			message: '#^Method App\\Models\\CartItem\:\:cart\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/CartItem.php
+
+		-
+			message: '#^Method App\\Models\\CartItem\:\:variant\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/CartItem.php
+
+		-
+			message: '#^Class App\\Models\\Category uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Category.php
+
+		-
+			message: '#^Method App\\Models\\Order\:\:items\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Order.php
+
+		-
+			message: '#^Method App\\Models\\Order\:\:shippingMethod\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Order.php
+
+		-
+			message: '#^Method App\\Models\\Order\:\:user\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Order.php
+
+		-
+			message: '#^Method App\\Models\\OrderItem\:\:order\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/OrderItem.php
+
+		-
+			message: '#^Method App\\Models\\OrderItem\:\:variant\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/OrderItem.php
+
+		-
+			message: '#^Class App\\Models\\Product has PHPDoc tag @property for property \$images with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/Product.php
+
+		-
+			message: '#^Class App\\Models\\Product has PHPDoc tag @property for property \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/Product.php
+
+		-
+			message: '#^Class App\\Models\\Product uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Product.php
+
+		-
+			message: '#^Class App\\Models\\Supplier uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Supplier.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:addresses\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:cart\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasOne does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:orders\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\UserAddress\:\:user\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/UserAddress.php
+
+		-
+			message: '#^Class App\\Models\\Variant has PHPDoc tag @property for property \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/Variant.php
+
+		-
+			message: '#^Class App\\Models\\Variant uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Variant.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/CartService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$quantity\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Services/CartService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$variant\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Services/CartService.php
+
+		-
+			message: '#^Method App\\Services\\CartService\:\:formatOptions\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CartService.php
+
+		-
+			message: '#^Method App\\Services\\CartService\:\:getCartDetailsForGuest\(\) has parameter \$guestItems with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CartService.php
+
+		-
+			message: '#^Method App\\Services\\CartService\:\:getCartDetailsForGuest\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CartService.php
+
+		-
+			message: '#^Method App\\Services\\CartService\:\:getCartDetailsForUser\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CartService.php
+
+		-
+			message: '#^Method App\\Services\\CartService\:\:mergeGuestCart\(\) has parameter \$guestItems with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CartService.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 2
+			path: app/Services/CartService.php
+
+		-
+			message: '#^Method App\\Services\\Payment\\Drivers\\MockPaymentGateway\:\:createPaymentIntent\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/Payment/Drivers/MockPaymentGateway.php
+
+		-
+			message: '#^Method App\\Services\\Payment\\Drivers\\MockPaymentGateway\:\:verifyWebhook\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/Payment/Drivers/MockPaymentGateway.php
+
+		-
+			message: '#^Method App\\Services\\Payment\\Drivers\\StripePaymentGateway\:\:__construct\(\) has parameter \$config with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/Payment/Drivers/StripePaymentGateway.php
+
+		-
+			message: '#^Method App\\Services\\Payment\\Drivers\\StripePaymentGateway\:\:createPaymentIntent\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/Payment/Drivers/StripePaymentGateway.php
+
+		-
+			message: '#^Method App\\Services\\Payment\\Drivers\\StripePaymentGateway\:\:verifyWebhook\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/Payment/Drivers/StripePaymentGateway.php
+
+		-
+			message: '#^Method App\\Services\\Payment\\PaymentGatewayInterface\:\:createPaymentIntent\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/Payment/PaymentGatewayInterface.php
+
+		-
+			message: '#^Method App\\Services\\Payment\\PaymentGatewayInterface\:\:verifyWebhook\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/Payment/PaymentGatewayInterface.php
+
+		-
+			message: '#^Called ''env'' outside of the config directory which returns null when the config is cached, use ''config''\.$#'
+			identifier: larastan.noEnvCallsOutsideOfConfig
+			count: 2
+			path: app/Services/Payment/PaymentManager.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: app/Services/ProductImportService.php
+
+		-
+			message: '#^Method App\\Services\\ProductImportService\:\:importFile\(\) should return string but returns string\|false\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Services/ProductImportService.php
+
+		-
+			message: '#^Parameter \#1 \$filePath of job class App\\Jobs\\ProcessCsvImportJob constructor expects string in App\\Jobs\\ProcessCsvImportJob\:\:dispatch\(\), string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/ProductImportService.php
+
+		-
+			message: '#^Parameter \#2 \$contents of static method Illuminate\\Contracts\\Filesystem\\Filesystem\:\:put\(\) expects Illuminate\\Http\\File\|Illuminate\\Http\\UploadedFile\|Psr\\Http\\Message\\StreamInterface\|resource\|string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/ProductImportService.php
+
+		-
+			message: '#^Method App\\Services\\Shipping\\Drivers\\FlatRateDriver\:\:createShipment\(\) has parameter \$orderData with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/Shipping/Drivers/FlatRateDriver.php
+
+		-
+			message: '#^Method App\\Services\\Shipping\\Drivers\\FlatRateDriver\:\:createShipment\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/Shipping/Drivers/FlatRateDriver.php
+
+		-
+			message: '#^Method App\\Services\\Shipping\\Drivers\\FlatRateDriver\:\:getRates\(\) has parameter \$address with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/Shipping/Drivers/FlatRateDriver.php
+
+		-
+			message: '#^Method App\\Services\\Shipping\\Drivers\\FlatRateDriver\:\:getRates\(\) has parameter \$items with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/Shipping/Drivers/FlatRateDriver.php
+
+		-
+			message: '#^Method App\\Services\\Shipping\\Drivers\\FlatRateDriver\:\:getRates\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/Shipping/Drivers/FlatRateDriver.php
+
+		-
+			message: '#^Method App\\Services\\Shipping\\ShippingGatewayInterface\:\:createShipment\(\) has parameter \$orderData with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/Shipping/ShippingGatewayInterface.php
+
+		-
+			message: '#^Method App\\Services\\Shipping\\ShippingGatewayInterface\:\:createShipment\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/Shipping/ShippingGatewayInterface.php
+
+		-
+			message: '#^Method App\\Services\\Shipping\\ShippingGatewayInterface\:\:getRates\(\) has parameter \$address with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/Shipping/ShippingGatewayInterface.php
+
+		-
+			message: '#^Method App\\Services\\Shipping\\ShippingGatewayInterface\:\:getRates\(\) has parameter \$items with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/Shipping/ShippingGatewayInterface.php
+
+		-
+			message: '#^Method App\\Services\\Shipping\\ShippingGatewayInterface\:\:getRates\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/Shipping/ShippingGatewayInterface.php
+
+		-
+			message: '#^Parameter \#2 \$string of function explode expects string, bool\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: config/sanctum.php
+
+		-
+			message: '#^Parameter \#1 \$string of function ucfirst expects string, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: database/factories/ProductFactory.php
+
+		-
+			message: '#^Parameter \#1 \$title of static method Illuminate\\Support\\Str\:\:slug\(\) expects string, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: database/factories/ProductFactory.php
+
+		-
+			message: '#^Argument of an invalid type list\<string\>\|false supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 2
+			path: database/generate_csv.php
+
+		-
+			message: '#^Binary operation "\." between array\|string and '' \(Apparel\)''\|'' \(Automotive\)''\|'' \(Beauty\)''\|'' \(Electronics\)''\|'' \(Garden\)''\|'' \(Health\)''\|'' \(Home\)''\|'' \(Office\)''\|'' \(Sporting\)''\|'' \(Toys\)'' results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: database/generate_csv.php
+
+		-
+			message: '#^Parameter \#1 \$stream of function fclose expects resource, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: database/generate_csv.php
+
+		-
+			message: '#^Parameter \#1 \$stream of function fputcsv expects resource, resource\|false given\.$#'
+			identifier: argument.type
+			count: 2
+			path: database/generate_csv.php
+
+		-
+			message: '#^Parameter \#1 \$string of function str_pad expects string, int\<1, 200\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: database/generate_csv.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 1
+			path: database/generate_csv.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between ''Apple Watch Series 9''\|''DeLonghi Magnifica…''\|''Herman Miller Aeron…''\|''Hydro Flask 32 oz''\|''iPhone 15''\|''MacBook Air M3''\|''Nike Air Zoom…''\|''Peak Design…''\|''Sony PlayStation 5''\|''Sony WH\-1000XM5'' and ''Everyday Backpack…'' will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: database/seeders/ProductSeeder.php
