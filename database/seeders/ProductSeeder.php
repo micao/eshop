@@ -1,0 +1,567 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Product;
+use App\Models\Variant;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
+
+class ProductSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        $productsData = [
+            [
+                'name' => 'iPhone 15',
+                'slug' => 'iphone-15',
+                'description' => 'The iPhone 15 features a durable color-infused glass and aluminum design, Dynamic Island, a 48MP Main camera, and USB-C.',
+                'summary' => 'Durable design, 48MP main camera, Dynamic Island, and USB-C.',
+                'status' => 'active',
+                'thumbnail' => 'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=300&q=80',
+                'images' => [
+                    'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=600&q=80',
+                    'https://images.unsplash.com/photo-1565630916779-e303be97b6f5?auto=format&fit=crop&w=600&q=80'
+                ],
+                'options' => [
+                    ['name' => 'Storage', 'values' => ['128GB', '256GB']],
+                    ['name' => 'Color', 'values' => ['Black']]
+                ],
+                'variants' => [
+                    [
+                        'name' => 'iPhone 15 - Black / 128GB',
+                        'sku' => 'IPH15-BLK-128',
+                        'barcode' => '195949033348',
+                        'price' => 799.00,
+                        'compare_at_price' => 899.00,
+                        'cost_price' => 450.00,
+                        'inventory_quantity' => 50,
+                        'track_inventory' => true,
+                        'continue_selling_out_of_stock' => false,
+                        'weight' => 171,
+                        'weight_unit' => 'g',
+                        'width' => 7.16,
+                        'height' => 14.76,
+                        'depth' => 0.78,
+                        'dimension_unit' => 'cm',
+                        'options' => ['Storage' => '128GB', 'Color' => 'Black']
+                    ],
+                    [
+                        'name' => 'iPhone 15 - Black / 256GB',
+                        'sku' => 'IPH15-BLK-256',
+                        'barcode' => '195949033355',
+                        'price' => 899.00,
+                        'compare_at_price' => 999.00,
+                        'cost_price' => 500.00,
+                        'inventory_quantity' => 30,
+                        'track_inventory' => true,
+                        'continue_selling_out_of_stock' => false,
+                        'weight' => 171,
+                        'weight_unit' => 'g',
+                        'width' => 7.16,
+                        'height' => 14.76,
+                        'depth' => 0.78,
+                        'dimension_unit' => 'cm',
+                        'options' => ['Storage' => '256GB', 'Color' => 'Black']
+                    ]
+                ]
+            ],
+            [
+                'name' => 'MacBook Air M3',
+                'slug' => 'macbook-air-m3',
+                'description' => 'The superlight MacBook Air with the M3 chip sails through work and play. Supercharged by Apple Silicon and featuring up to 18 hours of battery life.',
+                'summary' => 'Supercharged by Apple Silicon M3, with 18 hours of battery life.',
+                'status' => 'active',
+                'thumbnail' => 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=300&q=80',
+                'images' => [
+                    'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80',
+                    'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=600&q=80'
+                ],
+                'options' => [
+                    ['name' => 'RAM', 'values' => ['8GB', '16GB']],
+                    ['name' => 'Storage', 'values' => ['512GB']]
+                ],
+                'variants' => [
+                    [
+                        'name' => 'MacBook Air - 8GB / 512GB',
+                        'sku' => 'MBA-M3-8G-512',
+                        'barcode' => '195949123456',
+                        'price' => 1099.00,
+                        'compare_at_price' => null,
+                        'cost_price' => 700.00,
+                        'inventory_quantity' => 20,
+                        'track_inventory' => true,
+                        'continue_selling_out_of_stock' => false,
+                        'weight' => 1240,
+                        'weight_unit' => 'g',
+                        'width' => 30.41,
+                        'height' => 21.50,
+                        'depth' => 1.13,
+                        'dimension_unit' => 'cm',
+                        'options' => ['RAM' => '8GB', 'Storage' => '512GB']
+                    ],
+                    [
+                        'name' => 'MacBook Air - 16GB / 512GB',
+                        'sku' => 'MBA-M3-16G-512',
+                        'barcode' => '195949123463',
+                        'price' => 1299.00,
+                        'compare_at_price' => null,
+                        'cost_price' => 800.00,
+                        'inventory_quantity' => 15,
+                        'track_inventory' => true,
+                        'continue_selling_out_of_stock' => false,
+                        'weight' => 1240,
+                        'weight_unit' => 'g',
+                        'width' => 30.41,
+                        'height' => 21.50,
+                        'depth' => 1.13,
+                        'dimension_unit' => 'cm',
+                        'options' => ['RAM' => '16GB', 'Storage' => '512GB']
+                    ]
+                ]
+            ],
+            [
+                'name' => 'Sony WH-1000XM5',
+                'slug' => 'sony-wh-1000xm5',
+                'description' => 'Sony WH-1000XM5 Wireless Noise Canceling Headphones redefine distraction-free listening and phone call clarity, featuring two processors controlling 8 microphones.',
+                'summary' => 'Industry-leading noise canceling headphones with exceptional sound.',
+                'status' => 'active',
+                'thumbnail' => 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=300&q=80',
+                'images' => [
+                    'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80'
+                ],
+                'options' => [
+                    ['name' => 'Color', 'values' => ['Black', 'Silver']]
+                ],
+                'variants' => [
+                    [
+                        'name' => 'Sony WH-1000XM5 - Black',
+                        'sku' => 'SONY-XM5-BLK',
+                        'barcode' => '027242922739',
+                        'price' => 348.00,
+                        'compare_at_price' => 399.00,
+                        'cost_price' => 190.00,
+                        'inventory_quantity' => 40,
+                        'track_inventory' => true,
+                        'continue_selling_out_of_stock' => false,
+                        'weight' => 250,
+                        'weight_unit' => 'g',
+                        'width' => 22.00,
+                        'height' => 26.00,
+                        'depth' => 7.50,
+                        'dimension_unit' => 'cm',
+                        'options' => ['Color' => 'Black']
+                    ],
+                    [
+                        'name' => 'Sony WH-1000XM5 - Silver',
+                        'sku' => 'SONY-XM5-SLV',
+                        'barcode' => '027242922746',
+                        'price' => 348.00,
+                        'compare_at_price' => 399.00,
+                        'cost_price' => 190.00,
+                        'inventory_quantity' => 35,
+                        'track_inventory' => true,
+                        'continue_selling_out_of_stock' => false,
+                        'weight' => 250,
+                        'weight_unit' => 'g',
+                        'width' => 22.00,
+                        'height' => 26.00,
+                        'depth' => 7.50,
+                        'dimension_unit' => 'cm',
+                        'options' => ['Color' => 'Silver']
+                    ]
+                ]
+            ],
+            [
+                'name' => 'Nike Air Zoom Pegasus 40',
+                'slug' => 'nike-air-zoom-pegasus-40',
+                'description' => 'A springy ride for every run, the Peg’s familiar, just-for-you feel returns to help you accomplish your goals. This version has the same responsiveness and neutral support.',
+                'summary' => 'Neutral support, medium cushioning, springy running shoes.',
+                'status' => 'active',
+                'thumbnail' => 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=300&q=80',
+                'images' => [
+                    'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80'
+                ],
+                'options' => [
+                    ['name' => 'Size', 'values' => ['US 9', 'US 10']],
+                    ['name' => 'Color', 'values' => ['White']]
+                ],
+                'variants' => [
+                    [
+                        'name' => 'Nike Pegasus 40 - US 9',
+                        'sku' => 'NIKE-PEG40-W-9',
+                        'barcode' => '196604123456',
+                        'price' => 130.00,
+                        'compare_at_price' => null,
+                        'cost_price' => 60.00,
+                        'inventory_quantity' => 100,
+                        'track_inventory' => true,
+                        'continue_selling_out_of_stock' => false,
+                        'weight' => 285,
+                        'weight_unit' => 'g',
+                        'width' => 20.00,
+                        'height' => 33.00,
+                        'depth' => 12.00,
+                        'dimension_unit' => 'cm',
+                        'options' => ['Size' => 'US 9', 'Color' => 'White']
+                    ],
+                    [
+                        'name' => 'Nike Pegasus 40 - US 10',
+                        'sku' => 'NIKE-PEG40-W-10',
+                        'barcode' => '196604123463',
+                        'price' => 130.00,
+                        'compare_at_price' => null,
+                        'cost_price' => 60.00,
+                        'inventory_quantity' => 85,
+                        'track_inventory' => true,
+                        'continue_selling_out_of_stock' => false,
+                        'weight' => 285,
+                        'weight_unit' => 'g',
+                        'width' => 20.00,
+                        'height' => 33.00,
+                        'depth' => 12.00,
+                        'dimension_unit' => 'cm',
+                        'options' => ['Size' => 'US 10', 'Color' => 'White']
+                    ]
+                ]
+            ],
+            [
+                'name' => 'Apple Watch Series 9',
+                'slug' => 'apple-watch-series-9',
+                'description' => 'Apple Watch Series 9 is more capable, intuitive, and faster. The new S9 SiP power a super-bright display and a magical new way to quickly interact.',
+                'summary' => 'S9 SiP, Double Tap gesture, and brighter Always-On display.',
+                'status' => 'active',
+                'thumbnail' => 'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=300&q=80',
+                'images' => [
+                    'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=600&q=80'
+                ],
+                'options' => [
+                    ['name' => 'Size', 'values' => ['41mm', '45mm']]
+                ],
+                'variants' => [
+                    [
+                        'name' => 'Apple Watch S9 - 41mm',
+                        'sku' => 'APL-W9-41',
+                        'barcode' => '195949555666',
+                        'price' => 399.00,
+                        'compare_at_price' => null,
+                        'cost_price' => 220.00,
+                        'inventory_quantity' => 18,
+                        'track_inventory' => true,
+                        'continue_selling_out_of_stock' => false,
+                        'weight' => 32,
+                        'weight_unit' => 'g',
+                        'width' => 3.50,
+                        'height' => 4.10,
+                        'depth' => 1.07,
+                        'dimension_unit' => 'cm',
+                        'options' => ['Size' => '41mm']
+                    ],
+                    [
+                        'name' => 'Apple Watch S9 - 45mm',
+                        'sku' => 'APL-W9-45',
+                        'barcode' => '195949555673',
+                        'price' => 429.00,
+                        'compare_at_price' => null,
+                        'cost_price' => 240.00,
+                        'inventory_quantity' => 25,
+                        'track_inventory' => true,
+                        'continue_selling_out_of_stock' => false,
+                        'weight' => 39,
+                        'weight_unit' => 'g',
+                        'width' => 3.80,
+                        'height' => 4.50,
+                        'depth' => 1.07,
+                        'dimension_unit' => 'cm',
+                        'options' => ['Size' => '45mm']
+                    ]
+                ]
+            ],
+            [
+                'name' => 'DeLonghi Magnifica Start',
+                'slug' => 'delonghi-magnifica-start',
+                'description' => 'Bring the authentic Italian coffee experience into your home with DeLonghi Magnifica Start. Espresso, Coffee, and Long drinks at the touch of a button.',
+                'summary' => 'Automatic bean-to-cup espresso and coffee machine.',
+                'status' => 'active',
+                'thumbnail' => 'https://images.unsplash.com/photo-1517256064527-09c53b2d0bc6?auto=format&fit=crop&w=300&q=80',
+                'images' => [
+                    'https://images.unsplash.com/photo-1517256064527-09c53b2d0bc6?auto=format&fit=crop&w=600&q=80'
+                ],
+                'options' => [
+                    ['name' => 'Color', 'values' => ['Black', 'Silver']]
+                ],
+                'variants' => [
+                    [
+                        'name' => 'Magnifica Start - Black',
+                        'sku' => 'DL-MAG-BLK',
+                        'barcode' => '8004399024564',
+                        'price' => 499.00,
+                        'compare_at_price' => 549.00,
+                        'cost_price' => 300.00,
+                        'inventory_quantity' => 8,
+                        'track_inventory' => true,
+                        'continue_selling_out_of_stock' => false,
+                        'weight' => 9000,
+                        'weight_unit' => 'g',
+                        'width' => 24.00,
+                        'height' => 35.00,
+                        'depth' => 44.00,
+                        'dimension_unit' => 'cm',
+                        'options' => ['Color' => 'Black']
+                    ],
+                    [
+                        'name' => 'Magnifica Start - Silver',
+                        'sku' => 'DL-MAG-SLV',
+                        'barcode' => '8004399024571',
+                        'price' => 529.00,
+                        'compare_at_price' => 579.00,
+                        'cost_price' => 320.00,
+                        'inventory_quantity' => 5,
+                        'track_inventory' => true,
+                        'continue_selling_out_of_stock' => false,
+                        'weight' => 9000,
+                        'weight_unit' => 'g',
+                        'width' => 24.00,
+                        'height' => 35.00,
+                        'depth' => 44.00,
+                        'dimension_unit' => 'cm',
+                        'options' => ['Color' => 'Silver']
+                    ]
+                ]
+            ],
+            [
+                'name' => 'Herman Miller Aeron Chair',
+                'slug' => 'herman-miller-aeron-chair',
+                'description' => 'The Aeron chair set a new benchmark for ergonomic comfort and design. Its iconic form is remastered to offer smarter weight distribution and customized alignment.',
+                'summary' => 'Ergonomic office chair with adjustable lumbar support and breathable Pellicle mesh.',
+                'status' => 'active',
+                'thumbnail' => 'https://images.unsplash.com/photo-1580481072645-022f9a6dbf27?auto=format&fit=crop&w=300&q=80',
+                'images' => [
+                    'https://images.unsplash.com/photo-1580481072645-022f9a6dbf27?auto=format&fit=crop&w=600&q=80'
+                ],
+                'options' => [
+                    ['name' => 'Size', 'values' => ['Size B', 'Size C']]
+                ],
+                'variants' => [
+                    [
+                        'name' => 'Aeron Chair - Size B',
+                        'sku' => 'HM-AERON-SIZEB',
+                        'barcode' => '024681357910',
+                        'price' => 1495.00,
+                        'compare_at_price' => null,
+                        'cost_price' => 600.00,
+                        'inventory_quantity' => 12,
+                        'track_inventory' => true,
+                        'continue_selling_out_of_stock' => false,
+                        'weight' => 19000,
+                        'weight_unit' => 'g',
+                        'width' => 68.50,
+                        'height' => 104.00,
+                        'depth' => 43.00,
+                        'dimension_unit' => 'cm',
+                        'options' => ['Size' => 'Size B']
+                    ],
+                    [
+                        'name' => 'Aeron Chair - Size C',
+                        'sku' => 'HM-AERON-SIZEC',
+                        'barcode' => '024681357927',
+                        'price' => 1545.00,
+                        'compare_at_price' => null,
+                        'cost_price' => 620.00,
+                        'inventory_quantity' => 6,
+                        'track_inventory' => true,
+                        'continue_selling_out_of_stock' => false,
+                        'weight' => 20000,
+                        'weight_unit' => 'g',
+                        'width' => 71.80,
+                        'height' => 109.00,
+                        'depth' => 47.00,
+                        'dimension_unit' => 'cm',
+                        'options' => ['Size' => 'Size C']
+                    ]
+                ]
+            ],
+            [
+                'name' => 'Sony PlayStation 5',
+                'slug' => 'sony-playstation-5',
+                'description' => 'Experience lightning-fast loading with an ultra-high speed SSD, deeper immersion with support for haptic feedback, adaptive triggers, and 3D Audio.',
+                'summary' => 'Next-gen gaming console with stunning graphics and immersive controller.',
+                'status' => 'active',
+                'thumbnail' => 'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=300&q=80',
+                'images' => [
+                    'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=600&q=80'
+                ],
+                'options' => [
+                    ['name' => 'Model', 'values' => ['Digital Edition', 'Disc Edition']]
+                ],
+                'variants' => [
+                    [
+                        'name' => 'PlayStation 5 - Digital Edition',
+                        'sku' => 'SONY-PS5-DIG',
+                        'barcode' => '711719541028',
+                        'price' => 399.99,
+                        'compare_at_price' => 449.99,
+                        'cost_price' => 320.00,
+                        'inventory_quantity' => 14,
+                        'track_inventory' => true,
+                        'continue_selling_out_of_stock' => false,
+                        'weight' => 3900,
+                        'weight_unit' => 'g',
+                        'width' => 39.00,
+                        'height' => 9.20,
+                        'depth' => 26.00,
+                        'dimension_unit' => 'cm',
+                        'options' => ['Model' => 'Digital Edition']
+                    ],
+                    [
+                        'name' => 'PlayStation 5 - Disc Edition',
+                        'sku' => 'SONY-PS5-DSC',
+                        'barcode' => '711719541011',
+                        'price' => 499.99,
+                        'compare_at_price' => null,
+                        'cost_price' => 400.00,
+                        'inventory_quantity' => 22,
+                        'track_inventory' => true,
+                        'continue_selling_out_of_stock' => false,
+                        'weight' => 4500,
+                        'weight_unit' => 'g',
+                        'width' => 39.00,
+                        'height' => 10.40,
+                        'depth' => 26.00,
+                        'dimension_unit' => 'cm',
+                        'options' => ['Model' => 'Disc Edition']
+                    ]
+                ]
+            ],
+            [
+                'name' => 'Hydro Flask 32 oz',
+                'slug' => 'hydro-flask-32-oz',
+                'description' => 'Our 32 oz Wide Mouth water bottle is big enough for a whole day on the trail, and features TempShield double-wall vacuum insulation to keep drinks ice cold.',
+                'summary' => 'Insulated stainless steel wide-mouth water bottle.',
+                'status' => 'active',
+                'thumbnail' => 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=300&q=80',
+                'images' => [
+                    'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=600&q=80'
+                ],
+                'options' => [
+                    ['name' => 'Color', 'values' => ['Pacific', 'Snapper']]
+                ],
+                'variants' => [
+                    [
+                        'name' => 'Hydro Flask 32 oz - Pacific',
+                        'sku' => 'HF-32WM-PAC',
+                        'barcode' => '810070081234',
+                        'price' => 44.95,
+                        'compare_at_price' => null,
+                        'cost_price' => 15.00,
+                        'inventory_quantity' => 150,
+                        'track_inventory' => true,
+                        'continue_selling_out_of_stock' => true,
+                        'weight' => 475,
+                        'weight_unit' => 'g',
+                        'width' => 9.10,
+                        'height' => 25.00,
+                        'depth' => 9.10,
+                        'dimension_unit' => 'cm',
+                        'options' => ['Color' => 'Pacific']
+                    ],
+                    [
+                        'name' => 'Hydro Flask 32 oz - Snapper',
+                        'sku' => 'HF-32WM-SNAP',
+                        'barcode' => '810070081241',
+                        'price' => 44.95,
+                        'compare_at_price' => null,
+                        'cost_price' => 15.00,
+                        'inventory_quantity' => 120,
+                        'track_inventory' => true,
+                        'continue_selling_out_of_stock' => true,
+                        'weight' => 475,
+                        'weight_unit' => 'g',
+                        'width' => 9.10,
+                        'height' => 25.00,
+                        'depth' => 9.10,
+                        'dimension_unit' => 'cm',
+                        'options' => ['Color' => 'Snapper']
+                    ]
+                ]
+            ],
+            [
+                'name' => 'Peak Design Everyday Backpack 20L',
+                'slug' => 'peak-design-everyday-backpack-20l',
+                'description' => 'A pack that adapts to your ever-changing gear, lifestyle, and environment. The Everyday Backpack is built around accessibility, organization, and protection.',
+                'summary' => 'Award-winning bag for everyday and photo gear carry.',
+                'status' => 'active',
+                'thumbnail' => 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=300&q=80',
+                'images' => [
+                    'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80'
+                ],
+                'options' => [
+                    ['name' => 'Color', 'values' => ['Charcoal', 'Ash']]
+                ],
+                'variants' => [
+                    [
+                        'name' => 'Everyday Backpack 20L - Charcoal',
+                        'sku' => 'PD-EBP-20-CH',
+                        'barcode' => '818373020560',
+                        'price' => 279.95,
+                        'compare_at_price' => null,
+                        'cost_price' => 130.00,
+                        'inventory_quantity' => 22,
+                        'track_inventory' => true,
+                        'continue_selling_out_of_stock' => false,
+                        'weight' => 2010,
+                        'weight_unit' => 'g',
+                        'width' => 30.00,
+                        'height' => 46.00,
+                        'depth' => 17.00,
+                        'dimension_unit' => 'cm',
+                        'options' => ['Color' => 'Charcoal']
+                    ],
+                    [
+                        'name' => 'Everyday Backpack 20L - Ash',
+                        'sku' => 'PD-EBP-20-AS',
+                        'barcode' => '818373020577',
+                        'price' => 279.95,
+                        'compare_at_price' => null,
+                        'cost_price' => 130.00,
+                        'inventory_quantity' => 18,
+                        'track_inventory' => true,
+                        'continue_selling_out_of_stock' => false,
+                        'weight' => 2010,
+                        'weight_unit' => 'g',
+                        'width' => 30.00,
+                        'height' => 46.00,
+                        'depth' => 17.00,
+                        'dimension_unit' => 'cm',
+                        'options' => ['Color' => 'Ash']
+                    ]
+                ]
+            ]
+        ];
+
+        // Create default categories
+        $electronics = \App\Models\Category::firstOrCreate(['slug' => 'electronics'], ['name' => 'Electronics']);
+        $accessories = \App\Models\Category::firstOrCreate(['slug' => 'accessories'], ['name' => 'Accessories']);
+
+        foreach ($productsData as $pData) {
+            $variantsData = $pData['variants'];
+            unset($pData['variants']);
+
+            if ($pData['name'] === 'Everyday Backpack 20L') {
+                $pData['category_id'] = $accessories->id;
+            } else {
+                $pData['category_id'] = $electronics->id;
+            }
+
+            $product = Product::create($pData);
+
+            foreach ($variantsData as $vData) {
+                $vData['product_id'] = $product->id;
+                Variant::create($vData);
+            }
+        }
+    }
+}

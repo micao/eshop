@@ -1,0 +1,126 @@
+services:
+  # Nginx Web 服务器
+  web:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - php
+    networks:
+      - app-network
+
+  # PHP 8.4 FPM
+  php:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    volumes:
+      - .:/var/www
+    depends_on:
+      - mariadb
+      - redis
+      - minio
+      - rabbitmq
+    networks:
+      - app-network
+
+  # PHP Queue Worker
+  queue-worker:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    command: php artisan queue:work --verbose --tries=3 --timeout=90
+    volumes:
+      - .:/var/www
+    depends_on:
+      - mariadb
+      - redis
+      - rabbitmq
+      - elasticsearch
+    networks:
+      - app-network
+
+  # MariaDB 数据库
+  mariadb:
+    image: mariadb:10.11
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: myapp
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: apppassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - app-network
+
+  # Redis 缓存
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - app-network
+
+  # MinIO 对象存储 (兼容 S3)
+  minio:
+    image: minio/minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: password123
+    ports:
+      - "9000:9000" # API 端口
+      - "9001:9001" # Console 界面端口
+    volumes:
+      - minio_data:/data
+    networks:
+      - app-network
+
+  # RabbitMQ 消息队列 (带有管理界面)
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672:5672" # AMQP 端口
+      - "15672:15672" # 管理界面端口
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - app-network
+
+  # Elasticsearch 搜索引擎
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.1
+    container_name: eshop_elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+      - app-network
+
+# 持久化数据卷配置
+volumes:
+  mariadb_data:
+  redis_data:
+  minio_data:
+  rabbitmq_data:
+  elasticsearch_data:
+
+# 网络配置
+networks:
+  app-network:
+    driver: bridge
