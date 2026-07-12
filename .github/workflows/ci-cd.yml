@@ -25,7 +25,7 @@ jobs:
     
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -36,7 +36,7 @@ jobs:
           coverage: none
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '22'
           cache: 'npm'
@@ -80,14 +80,14 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # =========================================================================
       # OPTION 1: Traditional SSH & Git Deploy (Default)
       # Triggered by setting SSH_PRIVATE_KEY, SSH_HOST, and SSH_USER secrets.
       # =========================================================================
       - name: Deploy via SSH (Git pull + Build)
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
@@ -128,7 +128,7 @@ jobs:
       #       ghcr.io/${{ github.repository }}/app:${{ github.sha }}
       #
       # - name: Deploy Docker Service (Swarm / Compose)
-      #   uses: appleboy/ssh-action@v1.0.3
+      #   uses: appleboy/ssh-action@v1.2.5
       #   with:
       #     host: ${{ secrets.SSH_HOST }}
       #     username: ${{ secrets.SSH_USER }}
